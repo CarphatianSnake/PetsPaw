@@ -1,0 +1,14 @@
+main {
+  background: #FBE0DC;
+}
+
+main::before {
+  width: 775px;
+  height: 900px;
+  z-index: 1;
+  content: '';
+  position: absolute;
+  background: no-repeat url('./img/homepage-background.svg');
+  top: 0;
+  right: 215px;
+}
