@@ -1,14 +1,17 @@
-main {
+.homepage {
+  width: 680px;
+  height: 840px;
+  margin: 30px 0;
+  border-radius: 20px;
   background: #FBE0DC;
-}
-
-main::before {
-  width: 775px;
-  height: 900px;
-  z-index: 1;
-  content: '';
-  position: absolute;
-  background: no-repeat url('./img/homepage-background.svg');
-  top: 0;
-  right: 225px;
+  &::before {
+    width: 775px;
+    height: 900px;
+    z-index: 1;
+    content: '';
+    position: absolute;
+    background: no-repeat url('./img/homepage-background.svg');
+    top: 0;
+    right: 225px;
+  }
 }

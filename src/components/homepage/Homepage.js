@@ -2,7 +2,7 @@ import './homepage.scss';
 
 const Homepage = () => {
   return (
-    <main>
+    <main className='homepage'>
 
     </main>
   );
