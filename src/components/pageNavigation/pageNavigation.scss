@@ -1,0 +1,28 @@
+@import '../../variables.scss';
+
+.page-nav {
+  display: flex;
+  align-items: center;
+  & .back-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: no-repeat 50% url('./img/back-btn-std.svg'), $hover-pink;
+    &:hover {
+      background: no-repeat 50% url('./img/back-btn-hover.svg'), $active-pink;
+    }
+  }
+  & h3 {
+    height: 40px;
+    text-transform: uppercase;
+    color: $white;
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    margin-left: 10px;
+    background: $active-pink;
+    padding: 5px 30px;
+    border-radius: 10px;
+  }
+}
