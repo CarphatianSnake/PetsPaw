@@ -50,7 +50,7 @@
   border-radius: 20px;
 }
 
-.likes {
+.btn-likes {
   background: no-repeat 50% url('./img/like-std.svg'), $white;
   &:hover {
     background: no-repeat 50% url('./img/like-std.svg'), $hover-pink;
@@ -60,7 +60,7 @@
   }
 }
 
-.favourites {
+.btn-favourites {
   background: no-repeat 50% url('./img/fav-std.svg'), $white;
   &:hover {
     background: no-repeat 50% url('./img/fav-std.svg'), $hover-pink;
@@ -70,7 +70,7 @@
   }
 }
 
-.dislikes {
+.btn-dislikes {
   background: no-repeat 50% url('./img/dislike-std.svg'), $white;
   &:hover {
     background: no-repeat 50% url('./img/dislike-std.svg'), $hover-pink;
