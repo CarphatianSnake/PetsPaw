@@ -1,0 +1,53 @@
+@import '../../variables.scss';
+
+.breeds-nav {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  width: 100%;
+  & .sort-btn {
+    width: 40px;
+    height: 40px;
+    border: 2px solid transparent;
+    border-radius: 10px;
+  }
+  & .az {
+    background: no-repeat 50% url('./img/sort-az-def.svg'), $gray-back;
+    &:hover {
+      background: no-repeat 50% url('./img/sort-az-hover.svg'), $gray-back;
+      border-color: $hover-pink;
+    }
+  }
+  & .za {
+    margin-right: 10px;
+    background: no-repeat 50% url('./img/sort-za-def.svg'), $gray-back;
+    &:hover {
+      background: no-repeat 50% url('./img/sort-za-hover.svg'), $gray-back;
+      border-color: $hover-pink;
+    }
+  }
+  & .breeds-slct {
+    height: 40px;
+    margin-right: 10px;
+    background: no-repeat url('../../assets/img/select-arrow.svg'), $gray-back;
+    background-position: center right 10px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    padding: 0 10px;
+    font-size: 16px;
+    line-height: 24px;
+    color: $grey-text;
+    outline: 0;
+    appearance: none;
+    &:hover, &:focus {
+      border-color: $hover-pink;
+    }
+  }
+  & .breeds {
+    width: 226px;
+    margin-left: 10px;
+  }
+  & .br-limit {
+    width: 101px;
+  }
+}
