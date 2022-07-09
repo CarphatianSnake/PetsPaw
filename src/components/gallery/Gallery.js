@@ -8,7 +8,7 @@ const Gallery = () => {
     <main>
       <SearchPanel/>
       <section>
-        <PageNavigation name="Gallery" />
+        <PageNavigation />
       </section>
     </main>
   );

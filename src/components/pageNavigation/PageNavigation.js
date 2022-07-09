@@ -1,10 +1,12 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import './pageNavigation.scss';
 
-const PageNavigation = (props) => {
-  const {name} = props;
+const PageNavigation = () => {
   const nav = useNavigate();
+  const {pathname} = useLocation();
+
+  const name = pathname.charAt(1).toUpperCase() + pathname.slice(2);
 
   return (
     <div className="page-nav">

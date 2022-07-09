@@ -8,7 +8,7 @@ const Breeds = () => {
     <main>
       <SearchPanel />
       <section>
-        <PageNavigation name="Breeds" />
+        <PageNavigation />
       </section>
     </main>
   );
