@@ -10,7 +10,7 @@ const SearchPanel = () => {
 
   const linksToPages = pagesNames.map(name => {
     return (
-      <NavLink key={name} to={`../${name}/`} className={({isActive}) => isActive ? `btn-to-page ${name} active` : `btn-to-page ${name}`} />
+      <NavLink key={name} to={`../${name}/`} className={({isActive}) => isActive ? `btn-to-page btn-${name} active` : `btn-to-page btn-${name}`} />
     )
   })
 

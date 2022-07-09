@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 .container {
   display: flex;
   justify-content: center;
@@ -11,4 +13,13 @@ main {
   margin: 30px 0;
   border-radius: 20px;
   background: none;
+}
+
+section {
+  width: 100%;
+  min-height: 782px;
+  background: $white;
+  border-radius: 20px;
+  margin-top: 10px;
+  padding: 20px;
 }
