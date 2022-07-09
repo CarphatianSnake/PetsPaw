@@ -20,6 +20,7 @@ function App() {
           <Route path='breeds/' element={<Breeds />} />
           <Route path='gallery/' element={<Gallery />} />
         </Routes>
+        
       </div>
     </BrowserRouter>
   );

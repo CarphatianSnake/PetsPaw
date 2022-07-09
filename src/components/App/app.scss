@@ -4,20 +4,31 @@
   display: flex;
   justify-content: center;
   width: 1440px;
-  height: 100vh;
+  min-height: 900px;
 }
 
 main {
   width: 680px;
-  height: 840px;
+  max-height: 860px;
   margin: 30px 0;
   border-radius: 20px;
   background: none;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $hover-pink;
+  }
 }
 
 section {
   width: 100%;
-  min-height: 782px;
+  min-height: 780px;
   background: $white;
   border-radius: 20px;
   margin-top: 10px;

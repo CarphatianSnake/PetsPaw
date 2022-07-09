@@ -35,7 +35,7 @@ const Votes = () => {
     <main>
       <SearchPanel />
       <section>
-        <PageNavigation name="Voting" />
+        <PageNavigation />
 
         <div style={{background: `no-repeat 50% url('${url}')`}} className="photo-container">
           <div className="votes-btns">
