@@ -39,9 +39,9 @@ const Votes = () => {
 
         <div style={{background: `no-repeat 50% url('${url}')`}} className="photo-container">
           <div className="votes-btns">
-            <button className='vote-btn like'></button>
-            <button className='vote-btn fav'></button>
-            <button className='vote-btn dislike'></button>
+            <button className='vote-btn like-btn'></button>
+            <button className='vote-btn fav-btn'></button>
+            <button className='vote-btn dislike-btn'></button>
           </div>
         </div>
 

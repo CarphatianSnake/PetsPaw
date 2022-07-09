@@ -17,7 +17,7 @@
       height: 88px;
       border: 4px solid $white;
     }
-    & .like {
+    & .like-btn {
       border-radius: 20px 0 0 20px;
       border-right: none;
       background: no-repeat 50% url('./img/like-std.svg'), $green;
@@ -25,20 +25,20 @@
         background: no-repeat 50% url('./img/like-hover.svg'), $green-hover;
       }
     }
-    & .fav {
+    & .fav-btn {
       width: 88px;
       background: no-repeat 50% url('./img/fav-std.svg'), $active-pink;
       &:hover {
         background: no-repeat 50% url('./img/fav-hover.svg'), $hover-pink;
       }
     }
-    & .active {
+    & .active-btn {
       background: no-repeat 50% url('./img/fav-active.svg'), $active-pink;
       &:hover {
         background: no-repeat 50% url('./img/fav-hover-active.svg'), $hover-pink;
       }
     }
-    & .dislike {
+    & .dislike-btn {
       border-radius: 0 20px 20px 0;
       border-left: none;
       background: no-repeat 50% url('./img/dislike-std.svg'), $yellow;
