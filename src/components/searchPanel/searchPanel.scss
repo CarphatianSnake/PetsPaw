@@ -1,0 +1,81 @@
+@import '../../variables.scss';
+
+.sp-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 470px;
+  height: 60px;
+  background: $white;
+  border-radius: 20px;
+  border: 2px solid transparent;
+  &:hover {
+    border-color: $hover-pink;
+  }
+  &:focus-within {
+    border-color: $active-pink;
+  }
+}
+
+.search-input {
+  width: 80%;
+  height: 100%;
+  margin: 15px 20px;
+  margin-right: 0;
+  color: $black-font;
+  &:hover::placeholder  {
+    color: transparent;
+  }
+  &:focus::placeholder {
+    color: transparent;
+  }
+}
+
+.search-button {
+  width: 40px;
+  height: 40px;
+  margin: 10px;
+  background: no-repeat 50% url('./img/search-button.svg');
+}
+
+.btn-to-page {
+  width: 60px;
+  height: 60px;
+  border-radius: 20px;
+}
+
+.likes {
+  background: no-repeat 50% url('./img/like-std.svg'), $white;
+  &:hover {
+    background: no-repeat 50% url('./img/like-std.svg'), $hover-pink;
+  }
+  &:active, .likes .active {
+    background: no-repeat 50% url('./img/like-active.svg'), $active-pink;
+  }
+}
+
+.favourites {
+  background: no-repeat 50% url('./img/fav-std.svg'), $white;
+  &:hover {
+    background: no-repeat 50% url('./img/fav-std.svg'), $hover-pink;
+  }
+  &:active, .likes .active {
+    background: no-repeat 50% url('./img/fav-active.svg'), $active-pink;
+  }
+}
+
+.dislikes {
+  background: no-repeat 50% url('./img/dislike-std.svg'), $white;
+  &:hover {
+    background: no-repeat 50% url('./img/dislike-std.svg'), $hover-pink;
+  }
+  &:active, .likes .active {
+    background: no-repeat 50% url('./img/dislike-active.svg'), $active-pink;
+  }
+}
