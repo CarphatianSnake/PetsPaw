@@ -1,9 +1,11 @@
+@import '../../variables.scss';
+
 .homepage {
   width: 680px;
   height: 840px;
   margin: 30px 0;
   border-radius: 20px;
-  background: #FBE0DC;
+  background: $hover-pink;
   &::before {
     width: 775px;
     height: 900px;

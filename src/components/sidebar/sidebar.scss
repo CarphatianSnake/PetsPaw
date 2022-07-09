@@ -1,3 +1,5 @@
+@import '../../variables.scss';
+
 aside {
   display: flex;
   flex-direction: column;
@@ -7,14 +9,14 @@ aside {
   & h1 {
     margin-top: 80px;
     margin-bottom: 10px;
-    color: #1D1D1D;
+    color: $black-font;
     font-weight: 500;
     font-size: 44px;
     line-height: 58px;
   }
   & h4 {
     margin-top: 60px;
-    color: #1D1D1D;
+    color: $black-font;
     font-weight: 500;
   }
   & .logo {
@@ -57,32 +59,32 @@ aside {
             width: 138px;
             height: 36px;
             text-transform: uppercase;
-            color: #FF868E;
+            color: $active-pink;
             letter-spacing: 2px;
             text-align: center;
             font-size: 12px;
             line-height: 36px;
             font-weight: 500;
             border-radius: 10px;
-            background-color: #FFFFFF;
+            background-color: $white;
           }
         }
 
         &:hover {
           & h2 {
-            background: #FBE0DC;
+            background: $hover-pink;
           }
           & .nav-pic {
-            border-color: #FFFFFF;
+            border-color: $white;
           }
         }
         .active {
           & h2 {
-            background: #FF868E;
-            color: #FFFFFF;
+            background: $active-pink;
+            color: $white;
           }
           & .nav-pic {
-            border-color: #FBE0DC;
+            border-color: $hover-pink;
           }
         }
       }
