@@ -1,17 +1,20 @@
 @import '../../variables.scss';
 
 .photo-container {
-  display: flex;
-  align-items: flex-end;
   width: 100%;
   min-height: 360px;
   margin-top: 20px;
-  border-radius: 20px;
-  & .votes-btns {
+  & img {
     margin: 0 auto;
-    margin-bottom: -48px;
     border-radius: 20px;
-    background: $white;
+  }
+  & .votes-btns {
+    position: relative;
+    width: 256px;
+    bottom: 44px;
+    margin: 0 auto;
+    border-radius: 20px;
+    background-color: $white;
     & .vote-btn {
       width: 84px;
       height: 88px;
@@ -51,7 +54,7 @@
 
 .action-logs {
   width: 100%;
-  margin-top: 48px;
+  margin-top: -49px;
   & .log-item {
     width: 100%;
     margin-top: 10px;

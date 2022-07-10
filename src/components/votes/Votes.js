@@ -1,12 +1,44 @@
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
 import SearchPanel from '../searchPanel/SearchPanel';
 import PageNavigation from '../pageNavigation/PageNavigation';
 
-import cat from './img/cat.jpg';
+import { fetchPhoto, getPhotoData } from './votesSlice';
 
 import './votes.scss';
 
 const Votes = () => {
-  const url = cat;
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {dispatch(fetchPhoto())}, []);
+
+  const photoData = useSelector(getPhotoData);
+  const isPhotoLoading = useSelector(state => state.votesSlice.photoLoadingStatus);
+
+  const setPhoto = () => {
+    switch (isPhotoLoading) {
+      case 'idle':
+        return console.log('idle');
+      case 'pending':
+        return console.log('pending');
+      case 'loaded':
+        if (photoData.width < 680) {
+          dispatch(fetchPhoto());
+          break;
+        } else {
+          return photoData.url;
+        }
+      case 'error':
+        throw new Error(`Couldn't fetch data`);
+    }
+  }
+
+  const getPhoto = setPhoto();
+
+  const photo = isPhotoLoading === 'loaded' ? <img src={getPhoto} /> : null;
+
   const fakeLog = [
     {id: '1kjhjk1', action: 'Likes', time: '22:47'},
     {id: '2dfsfs', action: 'Dislikes', time: '22:22'},
@@ -37,7 +69,8 @@ const Votes = () => {
       <section>
         <PageNavigation />
 
-        <div style={{background: `no-repeat 50% url('${url}')`}} className="photo-container">
+        <div className="photo-container">
+          {photo}
           <div className="votes-btns">
             <button className='vote-btn like-btn'></button>
             <button className='vote-btn fav-btn'></button>
