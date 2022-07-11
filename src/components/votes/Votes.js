@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { isFulfilled } from '@reduxjs/toolkit';
 
 import SearchPanel from '../searchPanel/SearchPanel';
 import PageNavigation from '../pageNavigation/PageNavigation';
@@ -18,7 +17,7 @@ const Votes = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(fetchVotes())
+    (dispatch(fetchVotes()))
   }, []);
 
   useEffect(() => {
@@ -104,6 +103,29 @@ const Votes = () => {
   }
 
   const log = collectLogData();
+
+  const finalPageLoad = () => {
+    if (isPhotoLoading === 'loaded' && isVotesLoading === 'loaded' && isVotesLoading === 'loaded') {
+      return (
+        <>
+          <div className="photo-container">
+            {photo}
+            <div className="votes-btns">
+              <button className='vote-btn like-btn'></button>
+              <button className='vote-btn fav-btn'></button>
+              <button className='vote-btn dislike-btn'></button>
+            </div>
+          </div>
+
+          <ul className='action-logs'>
+            {log}
+          </ul>
+        </>
+      )
+    }
+  }
+
+  const page = finalPageLoad();
   
   return (
     <main>
@@ -111,18 +133,7 @@ const Votes = () => {
       <section>
         <PageNavigation />
 
-        <div className="photo-container">
-          {photo}
-          <div className="votes-btns">
-            <button className='vote-btn like-btn'></button>
-            <button className='vote-btn fav-btn'></button>
-            <button className='vote-btn dislike-btn'></button>
-          </div>
-        </div>
-
-        <ul className='action-logs'>
-          {log}
-        </ul>
+        {page}
       </section>
     </main>
   );
