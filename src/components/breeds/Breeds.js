@@ -34,12 +34,12 @@ const Breeds = () => {
 
         <nav className='breeds-nav'>
           <PageNavigation />
-          <select className='breeds-slct breeds' name='breeds' value='All breeds'>
+          <select className='breeds-slct breeds' name='breeds' defaultValue='All breeds'>
             <option value='All breeds'>All breeds</option>
             <option value='Abyssinian'>Abyssinian</option>
             <option value='British Shorthair'>British Shorthair</option>
           </select>
-          <select className='breeds-slct br-limit' name='limit' value='5'>
+          <select className='breeds-slct br-limit' name='limit' defaultValue='5'>
             <option value='5'>Limit: 5</option>
             <option value='10'>Limit: 10</option>
             <option value='15'>Limit: 15</option>

@@ -16,9 +16,9 @@ const SearchPanel = () => {
 
   return (
     <div className="sp-container">
-      <form className='search-form' action="submit">
-        <input className='search-input' type="text" placeholder='Search for breeds by name' />
-        <button onClick={() => prevDef()} className='search-button'></button>
+      <form className='search-form' onSubmit={(e) => prevDef(e)} action="submit">
+        <input className='search-input' onSubmit={(e) => prevDef(e)} type="text" placeholder='Search for breeds by name' />
+        <button onClick={(e) => prevDef(e)} className='search-button'></button>
       </form>
       {linksToPages}
     </div>
