@@ -1,19 +1,17 @@
-import { createSlice, createEntityAdapter, createAsyncThunk, createSelector } from "@reduxjs/toolkit";
+import { createSlice, createEntityAdapter, createAsyncThunk, createSelector } from "@reduxjs/toolkit"
 
-import useHttp from '../../hooks/useHttp';
+import useHttp from '../../hooks/useHttp'
 
-const _apiBase = 'https://api.thecatapi.com/v1/';
-const _apiKey = '?api_key=48590d6e-8781-4957-a99d-4ce5410ff12c';
+const _apiBase = 'https://api.thecatapi.com/v1/'
 
-const photoAdapter = createEntityAdapter();
-
-const votesAdapter = createEntityAdapter();
-
-const favsAdapter = createEntityAdapter();
+const photoAdapter = createEntityAdapter(),
+      votesAdapter = createEntityAdapter(),
+      favsAdapter = createEntityAdapter()
 
 const initialState = photoAdapter.getInitialState(
   {
     photoStatus: 'idle',
+    postStatus: false,
     votes: votesAdapter.getInitialState({
       votesStatus: 'idle'
     }),
@@ -23,19 +21,43 @@ const initialState = photoAdapter.getInitialState(
   }
 )
 
+export const addToFav = createAsyncThunk(
+  'vSlice/addToFav',
+  (id) => {
+    const {request} = useHttp()
+    return request(`${_apiBase}favourites`, 'POST', JSON.stringify({'image_id': `${id}`}))
+  }
+)
+
+export const postLike = createAsyncThunk(
+  'vSlice/postLike',
+  (id) => {
+    const {request} = useHttp()
+    return request(`${_apiBase}votes`, 'POST', JSON.stringify({'image_id': `${id}`, 'value': 1}))
+  }
+)
+
+export const postDislike = createAsyncThunk(
+  'vSlice/postDislike',
+  (id) => {
+    const {request} = useHttp()
+    return request(`${_apiBase}votes`, 'POST', JSON.stringify({'image_id': `${id}`, 'value': 0}))
+  }
+)
+
 export const fetchPhoto = createAsyncThunk(
   'vSlice/fetchPhoto',
   () => {
-    const {request} = useHttp();
-    return request(`${_apiBase}images/search?page=0&limit=1&order=RANDOM&size=full${_apiKey}`);
+    const {request} = useHttp()
+    return request(`${_apiBase}images/search?page=0&limit=1&order=RANDOM&size=full`)
   }
 );
 
 export const fetchVotes = createAsyncThunk(
   'vSlice/fetchVotes',
   () => {
-    const {request} = useHttp();
-    return request(`${_apiBase}votes${_apiKey}`);
+    const {request} = useHttp()
+    return request(`${_apiBase}votes?limit=1000`)
   }
 );
 
@@ -43,7 +65,7 @@ export const fetchFavs = createAsyncThunk(
   'vSlice/fetchFavs',
   () => {
     const {request} = useHttp();
-    return request(`${_apiBase}favourites${_apiKey}`);
+    return request(`${_apiBase}favourites`)
   }
 );
 
@@ -65,28 +87,32 @@ const vSlice = createSlice({
         votesAdapter.setAll(state.votes, payload)
       })
       .addCase(fetchVotes.rejected, state => {state.votes.votesStatus = 'error'})
-      .addCase(fetchFavs.pending, state => {state.favs.votesStatus = 'pending'})
+      .addCase(fetchFavs.pending, state => {state.favs.favsStatus = 'pending'})
       .addCase(fetchFavs.fulfilled, (state, {payload}) => {
         state.favs.favsStatus = 'loaded'
         favsAdapter.setAll(state.favs, payload)
       })
       .addCase(fetchFavs.rejected, state => {state.favs.favsStatus = 'error'})
+      .addCase(postLike.fulfilled, state => {state.postStatus = true})
+      .addCase(postDislike.fulfilled, state => {state.postStatus = true})
       .addDefaultCase(() => {})
   }
 })
 
-const {reducer} = vSlice;
-export default reducer;
+const {reducer} = vSlice
+export default reducer
 
-export const selectPhoto = photoAdapter.getSelectors(state => state.vSlice).selectAll;
-export const selectVotes = votesAdapter.getSelectors(state => state.vSlice.votes).selectAll;
-export const selectFavs = favsAdapter.getSelectors(state => state.vSlice.favs).selectAll;
+export const selectPhoto = photoAdapter.getSelectors(state => state.vSlice).selectAll
+export const selectVotes = votesAdapter.getSelectors(state => state.vSlice.votes).selectAll
+export const selectFavs = favsAdapter.getSelectors(state => state.vSlice.favs).selectAll
 
 export const getPhotoData = createSelector(
   state => state.vSlice.photoStatus,
   selectPhoto,
   (status, data) => {
-    if (status === 'loaded') return data[0];
+    if (status === 'loaded') {
+      return data[0]
+    }
   }
 )
 
@@ -102,6 +128,8 @@ export const getFavsData = createSelector(
   state => state.vSlice.favs.favsStatus,
   selectFavs,
   (status, data) => {
-    if (status === 'loaded') return data;
+    if (status === 'loaded') {
+      return data;
+    }
   }
 )
