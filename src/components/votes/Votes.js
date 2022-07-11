@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import SearchPanel from '../searchPanel/SearchPanel';
 import PageNavigation from '../pageNavigation/PageNavigation';
+import Spinner from '../spinner/Spinner';
 
 import { fetchPhoto, fetchVotes, fetchFavs, getPhotoData, getVotesData, getFavsData } from './vSlice';
 
@@ -122,6 +123,10 @@ const Votes = () => {
           </ul>
         </>
       )
+    } else {
+      return (
+        <Spinner />
+      )
     }
   }
 
@@ -132,7 +137,6 @@ const Votes = () => {
       <SearchPanel />
       <section>
         <PageNavigation />
-
         {page}
       </section>
     </main>
