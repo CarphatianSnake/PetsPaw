@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { isFulfilled } from '@reduxjs/toolkit';
 
 import SearchPanel from '../searchPanel/SearchPanel';
 import PageNavigation from '../pageNavigation/PageNavigation';
 
-import { fetchPhoto, getPhotoData } from './votesSlice';
+import { fetchPhoto, fetchVotes, fetchFavs, getPhotoData, getVotesData, getFavsData } from './vSlice';
 
 import './votes.scss';
 
@@ -12,56 +13,97 @@ const Votes = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {dispatch(fetchPhoto())}, []);
+  useEffect(() => {
+    dispatch(fetchPhoto())
+  }, []);
+
+  useEffect(() => {
+    dispatch(fetchVotes())
+  }, []);
+
+  useEffect(() => {
+    dispatch(fetchFavs())
+  }, []);
 
   const photoData = useSelector(getPhotoData);
-  const isPhotoLoading = useSelector(state => state.votesSlice.photoLoadingStatus);
+  const votesData = useSelector(getVotesData);
+  const favsData = useSelector(getFavsData);
+  const isPhotoLoading = useSelector(state => state.vSlice.photoStatus);
+  const isVotesLoading = useSelector(state => state.vSlice.votes.votesStatus);
+  const isFavsLoading = useSelector(state => state.vSlice.favs.favsStatus);
 
-  const setPhoto = () => {
-    switch (isPhotoLoading) {
+  const setData = (data, loadingTrigger) => {
+    switch (loadingTrigger) {
       case 'idle':
-        return console.log('idle');
+        return 'idle';
       case 'pending':
-        return console.log('pending');
+        return 'pending';
       case 'loaded':
-        if (photoData.width < 680) {
-          dispatch(fetchPhoto());
-          break;
-        } else {
-          return photoData.url;
-        }
-      case 'error':
+        return data;
+      case 'error': 
         throw new Error(`Couldn't fetch data`);
     }
   }
 
-  const getPhoto = setPhoto();
+  const validatePhoto = (photoData) => {
+    if (photoData.width < 680) {
+      dispatch(fetchPhoto())
+    } else {
+      return photoData.url
+    }
+  }
+
+  const getPhoto = validatePhoto(setData(photoData, isPhotoLoading));
 
   const photo = isPhotoLoading === 'loaded' ? <img src={getPhoto} /> : null;
 
-  const fakeLog = [
-    {id: '1kjhjk1', action: 'Likes', time: '22:47'},
-    {id: '2dfsfs', action: 'Dislikes', time: '22:22'},
-    {id: '3feffd', action: 'Favourites', time: '21:15'},
-    {id: '32rewfds', action: 'unfav', time: '19:16'}
-  ];
+  const collectLogData = () => {
 
-  const logElements = fakeLog.map(el => {
-    const {id, action, time} = el;
+    const getZero = (value) => {
+      const str = value.toString();
+      return str.length === 1 ? `0${str}` : str;
+    }
 
-    const text = action === 'unfav' ? 'was removed from Favourites' : `was added to ${action}`;
+    if (isVotesLoading === 'loaded' && isFavsLoading === 'loaded') {
 
-    return (
-      <li key={id} className='log-item'>
-        <div className='log-message'>
-          <span className="log-time">{time}</span>
-          <span className='log-text'>Image ID: <span className='log-photo-id'>{id}</span> {text}</span>
-        </div>
-        <div className={`log-action log-action-${action.toLowerCase()}-pic`}></div>
-      </li>
-    );
-    
-  });
+      const votes = votesData.map(item => ({
+        id: item.image_id,
+        time: Date.parse(item.created_at),
+        action: item.value ? 'Likes' : 'Dislikes'
+      }));
+
+      const favs = favsData.map(item => ({
+        id: item.image_id,
+        time: Date.parse(item.created_at),
+        action: 'Favourites'
+      }));
+
+      return votes.concat(favs)
+        .sort((a, b) => a.time - b.time)
+        .map(item => ({
+          ...item,
+          time: `${getZero(new Date(item.time).getHours())}:${getZero(new Date(item.time).getMinutes())}`
+        }))
+        .slice(0, 5)
+        .map(item => {
+          const {id, action, time} = item;
+
+          const text = action === 'unfav' ? 'was removed from Favourites' : `was added to ${action}`;
+
+          return (
+            <li key={id} className='log-item'>
+              <div className='log-message'>
+                <span className="log-time">{time}</span>
+                <span className='log-text'>Image ID: <span className='log-photo-id'>{id}</span> {text}</span>
+              </div>
+              <div className={`log-action log-action-${action.toLowerCase()}-pic`}></div>
+            </li>
+          );
+        });
+    }
+  }
+
+  const log = collectLogData();
   
   return (
     <main>
@@ -79,7 +121,7 @@ const Votes = () => {
         </div>
 
         <ul className='action-logs'>
-          {logElements}
+          {log}
         </ul>
       </section>
     </main>

@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import votesSlice from '../votes/votesSlice';
+import vSlice from '../votes/vSlice';
 
 const store = configureStore({
-  reducer: {votesSlice},
+  reducer: {vSlice},
   devTools: process.env.NODE_ENV !== 'production'
 })
 
