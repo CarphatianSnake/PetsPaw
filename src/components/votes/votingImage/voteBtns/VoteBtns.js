@@ -1,17 +1,19 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { fetchPhoto, postLike, postDislike, addToFav, fetchVotes } from '../../vSlice'
+import { fetchPhoto, postLike, postDislike, addToFav, fetchVotes, getPhotoData } from '../../vSlice'
 
 import '../../votes.scss'
 
 const VoteBtns = () => {
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const [isActive, setActive] = useState(false);
+  const photoData = useSelector(getPhotoData)
 
-  const toggleClass = () => {setActive(!isActive)};
+  const [isActive, setActive] = useState(false)
+
+  const toggleClass = () => {setActive(!isActive)}
 
   const makeVote = (id, action) => {
     if (action === 'like') {
