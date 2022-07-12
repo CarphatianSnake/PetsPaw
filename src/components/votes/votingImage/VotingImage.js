@@ -19,7 +19,12 @@ const VotingImage = () => {
   
   return (
     <div className="photo-container">
-      {isPhotoLoading === 'loaded' ? <><img src={photoData.url} /><VoteBtns /></> : <Spinner />} 
+      {isPhotoLoading === 'loaded' ? 
+        <>
+          <img src={photoData.url} />
+          <VoteBtns />
+        </> : 
+        <Spinner />} 
     </div>
   )
 }

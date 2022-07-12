@@ -1,9 +1,13 @@
+.spinner-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 320px;
+  margin-bottom: 20px;
+}
+
 .spinner {
-  margin: 0;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%);
   width: 100px;
   height: 100px;
   background: no-repeat center url('./img/spinner.svg');

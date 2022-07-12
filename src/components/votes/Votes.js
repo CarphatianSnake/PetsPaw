@@ -1,3 +1,5 @@
+import { useSelector } from 'react-redux/es/exports'
+
 import SearchPanel from '../searchPanel/SearchPanel'
 import PageNavigation from '../pageNavigation/PageNavigation'
 import VotingImage from './votingImage/VotingImage'
@@ -7,6 +9,8 @@ import './votes.scss'
 
 const Votes = () => {
 
+  const isPhotoLoaded = useSelector(state => state.vSlice.photoStatus)
+
   return (
     <main>
       <SearchPanel />
@@ -14,7 +18,7 @@ const Votes = () => {
         <PageNavigation />
         <div className='scroll-container'>
           <VotingImage/>
-          <VotingLog/>
+          {isPhotoLoaded === 'loaded' ? <VotingLog/> : null}
         </div>
       </section>
     </main>
