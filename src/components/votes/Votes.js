@@ -12,8 +12,10 @@ const Votes = () => {
       <SearchPanel />
       <section>
         <PageNavigation />
-        <VotingImage/>
-        <VotingLog/>
+        <div className='scroll-container'>
+          <VotingImage/>
+          <VotingLog/>
+        </div>
       </section>
     </main>
   );

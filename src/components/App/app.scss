@@ -25,3 +25,14 @@ section {
   margin-top: 10px;
   padding: 20px;
 }
+
+.scroll-container {
+  margin-top: 20px;
+  width: 100%;
+  max-height: 700px;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+}
