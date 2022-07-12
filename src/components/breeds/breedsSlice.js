@@ -7,6 +7,8 @@ const _apiBase = 'https://api.thecatapi.com/v1/'
 const breedsAdapter = createEntityAdapter()
 
 const initialState = breedsAdapter.getInitialState({
+  breedName: '',
+  breedId: '',
   breedsStatus: 'idle'
 })
 
@@ -18,10 +20,17 @@ export const fetchBreeds = createAsyncThunk(
   }
 )
 
-const breedsSlice = createSlice({
+export const breedsSlice = createSlice({
   name: 'breedsSlice',
   initialState,
-  reducers: {},
+  reducers: {
+    breedName (state, {payload}) {
+      state.breedName = payload
+    },
+    breedId (state, {payload}) {
+      state.breedId = payload
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchBreeds.fulfilled, (state, {payload}) => {
