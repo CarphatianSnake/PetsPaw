@@ -10,6 +10,7 @@ const initialState = breedsAdapter.getInitialState({
   breedName: '',
   breedId: '',
   breedsLimit: '10',
+  breedsReverse: false,
   breedsStatus: 'idle'
 })
 
@@ -33,6 +34,9 @@ export const breedsSlice = createSlice({
     },
     breedsLimit (state, {payload}) {
       state.breedsLimit = payload
+    },
+    breedReverse (state, {payload}) {
+      state.breedsReverse = payload
     }
   },
   extraReducers: (builder) => {

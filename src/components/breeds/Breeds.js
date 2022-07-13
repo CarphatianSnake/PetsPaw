@@ -6,6 +6,7 @@ import { nanoid } from '@reduxjs/toolkit'
 import SearchPanel from '../searchPanel/SearchPanel'
 import PageNavigation from '../pageNavigation/PageNavigation'
 import BreedsList from './breedsList/BreedsList'
+import SortBtns from './sortBtns/SortBtns'
 import PhotoGrid from '../photoGrid/PhotoGrid'
 import Spinner from '../spinner'
 import { fetchBreeds, breedsSlice, getBreedsList } from './breedsSlice'
@@ -20,13 +21,19 @@ const Breeds = () => {
   const dispatch = useDispatch()
   const limit = useSelector(state => state.breedsSlice.breedsLimit)
   const isBreedsLoaded = useSelector(state => state.breedsSlice.breedsStatus)
+  const isBreedsReverse = useSelector(state => state.breedsSlice.breedsReverse)
 
   useEffect(() => {
     dispatch(fetchBreeds())
   })
 
-  const makeBreedsArray = (arr, limit) => {
+  const makeBreedsArray = (arr, limit, isReverse) => {
+
     const tempArr = [...arr]
+
+    if (isReverse) {
+      tempArr.reverse()
+    }
 
     const newArr = []
     for (let i = 0; i < Math.ceil(arr.length / limit); i++) {
@@ -62,15 +69,14 @@ const Breeds = () => {
           <PageNavigation />
           <BreedsList />
           {limitsSelect}
-          <button className="sort-btn za"></button>
-          <button className="sort-btn az"></button>
+          <SortBtns />
         </nav>
 
         <div className='scroll-container'>
           {isBreedsLoaded === 'loaded' ?
             <PhotoGrid
               name='breeds'
-              photos={makeBreedsArray(getBreedsList(getState()), limit)}
+              photos={makeBreedsArray(getBreedsList(getState()), limit, isBreedsReverse)}
             /> :
             <Spinner />}
         </div>

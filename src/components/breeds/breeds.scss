@@ -18,6 +18,10 @@
       border-color: $hover-pink;
     }
   }
+  & .az-active {
+    background: no-repeat 50% url('./img/sort-az-hover.svg'), $gray-back;
+    border-color: $hover-pink;
+  }
   & .za {
     margin-right: 10px;
     background: no-repeat 50% url('./img/sort-za-def.svg'), $gray-back;
@@ -25,6 +29,11 @@
       background: no-repeat 50% url('./img/sort-za-hover.svg'), $gray-back;
       border-color: $hover-pink;
     }
+  }
+  & .za-active {
+    margin-right: 10px;
+    background: no-repeat 50% url('./img/sort-za-hover.svg'), $gray-back;
+    border-color: $hover-pink;
   }
   & .breeds-slct {
     height: 40px;
