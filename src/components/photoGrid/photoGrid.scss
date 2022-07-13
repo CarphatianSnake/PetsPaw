@@ -84,3 +84,27 @@
     }
   }
 }
+
+.breed-hover-element {
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 100%;
+  height: 100%;
+  background: $transp-pink;
+  border-radius: 20px;
+  & .breed-btn {
+    margin: 10px auto;
+    width: 180px;
+    height: 34px;
+    background: $white;
+    border-radius: 10px;
+    color: $active-pink;
+    font-size: 16px;
+  }
+}
+
+.grid-active {
+  visibility: visible;
+}
