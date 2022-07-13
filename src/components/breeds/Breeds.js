@@ -8,12 +8,14 @@ import PageNavigation from '../pageNavigation/PageNavigation'
 import BreedsList from './breedsList/BreedsList'
 import PhotoGrid from '../photoGrid/PhotoGrid'
 import Spinner from '../spinner'
-import { fetchBreeds, breedsSlice } from './breedsSlice'
+import { fetchBreeds, breedsSlice, getBreedsList } from './breedsSlice'
+import store from "../store/store"
 
 import './breeds.scss'
 
 const Breeds = () => {
 
+  const {getState} = store
   const dispatch = useDispatch()
   const limit = useSelector(state => state.breedsSlice.breedsLimit)
   const isBreedsLoaded = useSelector(state => state.breedsSlice.breedsStatus)
@@ -21,6 +23,16 @@ const Breeds = () => {
   useEffect(() => {
     dispatch(fetchBreeds())
   })
+
+  const makeBreedsArray = (arr, limit) => {
+    const tempArr = [...arr]
+    const newArr = []
+    for (let i = 0; i < Math.ceil(arr.length / limit); i++) {
+      newArr.push(tempArr.splice(0, limit))
+    }
+
+    return newArr
+  }
 
   const limitsSelect = (
     <select className='breeds-slct br-limit' onChange={(e) => {dispatch(breedsSlice.actions.breedsLimit(e.target.value))}}>
@@ -48,7 +60,12 @@ const Breeds = () => {
         </nav>
 
         <div className='scroll-container'>
-          {isBreedsLoaded === 'loaded' ? <PhotoGrid name='breeds' /> : <Spinner />}
+          {isBreedsLoaded === 'loaded' ?
+            <PhotoGrid
+              name='breeds'
+              photos={makeBreedsArray(getBreedsList(getState()), limit)}
+            /> :
+            <Spinner />}
         </div>
 
       </section>

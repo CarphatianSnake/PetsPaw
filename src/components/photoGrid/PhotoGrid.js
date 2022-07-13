@@ -1,34 +1,30 @@
 import { useSelector } from 'react-redux'
 
-import store from '../store/store'
-
-import { getBreedsList } from '../breeds/breedsSlice'
+import GridNavBtns from './GridNavBtns'
 
 import './photoGrid.scss'
 
 const PhotoGrid = (props) => {
+  
+  const {name, photos} = props
 
-  const {name} = props
-  const {getState} = store
+  const page = useSelector(state => state.pageSlice.gridPage)
 
-  const isBreedsLoaded = useSelector(state => state.breedsSlice.breedsStatus)
-  const limit = useSelector(state => state.breedsSlice.breedsLimit)
+  const breedGrid = (page = 0) => {
 
-  const breedGrid = (limit) => {
     return (
-      <div className="photo-grid">
-        {isBreedsLoaded === 'loaded' ? 
-          getBreedsList(getState())
-            .slice(0, limit)
-            .map(item => (
-              <div key={item.id} style={{backgroundImage: `url('${item.photo.url}')`}} className='photo-grid-item test'><div className="hover-div"></div></div>
-              )) : null
-        }
-      </div>
+      <>
+        <div className="photo-grid">
+          {photos[page].map(item => (
+                <div key={item.id} style={{backgroundImage: `url('${item.photo ? item.photo.url : null}')`}} className='photo-grid-item test'></div>
+                ))}
+        </div>
+        <GridNavBtns page={page} totalpages={photos.length - 1} />
+      </>
     )
   }
 
-  return breedGrid(limit)
+  return breedGrid(page)
 }
 
 export default PhotoGrid;
