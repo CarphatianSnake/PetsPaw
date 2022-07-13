@@ -9,6 +9,7 @@ import BreedsList from './breedsList/BreedsList'
 import PhotoGrid from '../photoGrid/PhotoGrid'
 import Spinner from '../spinner'
 import { fetchBreeds, breedsSlice, getBreedsList } from './breedsSlice'
+import { pageSlice } from '../photoGrid/pageSlice'
 import store from "../store/store"
 
 import './breeds.scss'
@@ -26,6 +27,7 @@ const Breeds = () => {
 
   const makeBreedsArray = (arr, limit) => {
     const tempArr = [...arr]
+
     const newArr = []
     for (let i = 0; i < Math.ceil(arr.length / limit); i++) {
       newArr.push(tempArr.splice(0, limit))
@@ -34,8 +36,13 @@ const Breeds = () => {
     return newArr
   }
 
+  const changeLimit = (e) => {
+    dispatch(breedsSlice.actions.breedsLimit(e.target.value))
+    dispatch(pageSlice.actions.pageRst())
+  }
+
   const limitsSelect = (
-    <select className='breeds-slct br-limit' onChange={(e) => {dispatch(breedsSlice.actions.breedsLimit(e.target.value))}}>
+    <select className='breeds-slct br-limit' onChange={(e) => {changeLimit(e)}}>
       {
         ['5', '10', '15', '20'].map(item => 
           item === limit ? 

@@ -9,10 +9,8 @@
   grid-gap: 20px;
   & .photo-grid-item {
     border-radius: 20px;
-    background: no-repeat center;
-    background-size: 200px auto;
-  }
-  & .test {
+    background: no-repeat top;
+    background-size: 230px auto;
     &:first-child {
       grid-row: 1/3;
       grid-column-start: 1;
@@ -53,6 +51,9 @@
       grid-column: 1/3;
       background-size: 500px auto;
     }
+  }
+  & .no-photo {
+    background: no-repeat center/50% url('../../assets/img/upload-bg.svg') !important;
   }
 }
 .photo-grid:last-child {

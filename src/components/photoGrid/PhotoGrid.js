@@ -16,7 +16,9 @@ const PhotoGrid = (props) => {
       <>
         <div className="photo-grid">
           {photos[page].map(item => (
-                <div key={item.id} style={{backgroundImage: `url('${item.photo ? item.photo.url : null}')`}} className='photo-grid-item test'></div>
+            item.photo ? 
+              <div key={item.id} style={{backgroundImage: `url('${item.photo.url}')`}} className='photo-grid-item'></div> :
+              <div key={item.id} className='photo-grid-item no-photo'></div>
                 ))}
         </div>
         <GridNavBtns page={page} totalpages={photos.length - 1} />

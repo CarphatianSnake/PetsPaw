@@ -9,6 +9,9 @@ export const pageSlice = createSlice({
     },
     pageDec (state) {
       state.gridPage = state.gridPage - 1
+    },
+    pageRst (state) {
+      state.gridPage = 0
     }
   }
 })
