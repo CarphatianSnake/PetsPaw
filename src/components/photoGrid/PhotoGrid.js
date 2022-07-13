@@ -1,24 +1,34 @@
+import { useSelector } from 'react-redux'
+
+import store from '../store/store'
+
+import { getBreedsList } from '../breeds/breedsSlice'
+
 import './photoGrid.scss'
 
 const PhotoGrid = (props) => {
-  return (
-    <>
+
+  const {name} = props
+  const {getState} = store
+
+  const isBreedsLoaded = useSelector(state => state.breedsSlice.breedsStatus)
+  const limit = useSelector(state => state.breedsSlice.breedsLimit)
+
+  const breedGrid = (limit) => {
+    return (
       <div className="photo-grid">
-        <div style={{backgroundImage: 'url("https://cdn2.thecatapi.com/images/_6x-3TiCA.jpg")'}} className='forw'><div className="hover-div"></div></div>
-        <div style={{backgroundImage: 'url("https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg")'}}><div className="hover-div"></div></div>
-        <div style={{backgroundImage: 'url("https://cdn2.thecatapi.com/images/BDb8ZXb1v.jpg")'}}><div className="hover-div"></div></div>
-        <div style={{backgroundImage: 'url("https://cdn2.thecatapi.com/images/7isAO4Cav.jpg")'}} className='forw'><div className="hover-div"></div></div>
-        <div style={{backgroundImage: 'url("https://cdn2.thecatapi.com/images/8D--jCd21.jpg")'}}><div className="hover-div"></div></div>
+        {isBreedsLoaded === 'loaded' ? 
+          getBreedsList(getState())
+            .slice(0, limit)
+            .map(item => (
+              <div key={item.id} style={{backgroundImage: `url('${item.photo.url}')`}} className='photo-grid-item test'><div className="hover-div"></div></div>
+              )) : null
+        }
       </div>
-      <div className="photo-grid">
-        <div style={{backgroundImage: 'url("https://cdn2.thecatapi.com/images/xnsqonbjW.jpg")'}}><div className="hover-div"></div></div>
-        <div style={{backgroundImage: 'url("https://cdn2.thecatapi.com/images/jvg3XfEdC.jpg")'}}><div className="hover-div"></div></div>
-        <div style={{backgroundImage: 'url("https://cdn2.thecatapi.com/images/13MkvUreZ.jpg")'}} className='rev'><div className="hover-div"></div></div>
-        <div style={{backgroundImage: 'url("https://cdn2.thecatapi.com/images/O3F3_S1XN.jpg")'}} className='rev'><div className="hover-div"></div></div>
-        <div style={{backgroundImage: 'url("https://cdn2.thecatapi.com/images/SMuZx-bFM.jpg")'}}><div className="hover-div"></div></div>
-      </div>
-    </>
-  )
+    )
+  }
+
+  return breedGrid(limit)
 }
 
 export default PhotoGrid;

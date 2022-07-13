@@ -1,11 +1,38 @@
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { nanoid } from '@reduxjs/toolkit'
+
 import SearchPanel from '../searchPanel/SearchPanel'
 import PageNavigation from '../pageNavigation/PageNavigation'
+import BreedsList from './breedsList/BreedsList'
 import PhotoGrid from '../photoGrid/PhotoGrid'
-import BreedsSelect from './breedsSelect/BreedsSelect'
+import Spinner from '../spinner'
+import { fetchBreeds, breedsSlice } from './breedsSlice'
 
 import './breeds.scss'
 
 const Breeds = () => {
+
+  const dispatch = useDispatch()
+  const limit = useSelector(state => state.breedsSlice.breedsLimit)
+  const isBreedsLoaded = useSelector(state => state.breedsSlice.breedsStatus)
+
+  useEffect(() => {
+    dispatch(fetchBreeds())
+  })
+
+  const limitsSelect = (
+    <select className='breeds-slct br-limit' onChange={(e) => {dispatch(breedsSlice.actions.breedsLimit(e.target.value))}}>
+      {
+        ['5', '10', '15', '20'].map(item => 
+          item === limit ? 
+            <option key={nanoid()} value={item} selected>Limit: {item}</option>
+            :
+            <option key={nanoid()} value={item}>Limit: {item}</option>)
+      }
+    </select>
+  )
 
   return (
     <main>
@@ -14,19 +41,14 @@ const Breeds = () => {
 
         <nav className='breeds-nav'>
           <PageNavigation />
-          <BreedsSelect/>
-          <select className='breeds-slct br-limit' name='limit' defaultValue='5'>
-            <option value='5'>Limit: 5</option>
-            <option value='10'>Limit: 10</option>
-            <option value='15'>Limit: 15</option>
-            <option value='20'>Limit: 20</option>
-          </select>
+          <BreedsList />
+          {limitsSelect}
           <button className="sort-btn za"></button>
           <button className="sort-btn az"></button>
         </nav>
 
         <div className='scroll-container'>
-          <PhotoGrid />
+          {isBreedsLoaded === 'loaded' ? <PhotoGrid name='breeds' /> : <Spinner />}
         </div>
 
       </section>

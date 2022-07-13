@@ -1,22 +1,16 @@
-import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 
-import { fetchBreeds, getBreedsList, breedsSlice } from '../breedsSlice'
+import { getBreedsList, breedsSlice } from '../breedsSlice'
 
 import '../breeds.scss'
 
-const BreedsSelect = () => {
-
+const BreedsList = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const breedsList = useSelector(getBreedsList)
+  const breedsList = useSelector(getBreedsList) 
   const isBreedsLoaded = useSelector(state => state.breedsSlice.breedsStatus)
-  
-  useEffect(() => {
-    dispatch(fetchBreeds())
-  }, [])
 
   const onBreedChoose = (e) => {
     const breedId = breedsList.filter(item => item.name === e.target.value)[0].id
@@ -28,7 +22,6 @@ const BreedsSelect = () => {
   return (
     <select
       className='breeds-slct breeds'
-      name='breeds'
       defaultValue='All breeds'
       onChange={onBreedChoose}>
         <option key="all-breads" value='All breeds'>All breeds</option>
@@ -37,4 +30,4 @@ const BreedsSelect = () => {
   )
 }
 
-export default BreedsSelect;
+export default BreedsList;

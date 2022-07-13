@@ -9,6 +9,7 @@ const breedsAdapter = createEntityAdapter()
 const initialState = breedsAdapter.getInitialState({
   breedName: '',
   breedId: '',
+  breedsLimit: '10',
   breedsStatus: 'idle'
 })
 
@@ -29,6 +30,9 @@ export const breedsSlice = createSlice({
     },
     breedId (state, {payload}) {
       state.breedId = payload
+    },
+    breedsLimit (state, {payload}) {
+      state.breedsLimit = payload
     }
   },
   extraReducers: (builder) => {
@@ -43,7 +47,7 @@ export const breedsSlice = createSlice({
 const {reducer} = breedsSlice
 export default reducer
 
-export const selectBreed = breedsAdapter.getSelectors(state => state.breedsSlice).selectAll
+const selectBreed = breedsAdapter.getSelectors(state => state.breedsSlice).selectAll
 
 export const getBreedsList = createSelector(
   state => state.breedsSlice.breedsStatus,
@@ -52,7 +56,8 @@ export const getBreedsList = createSelector(
     if (status === 'loaded') {
       return data.map(item => ({
         id: item.id,
-        name: item.name
+        name: item.name,
+        photo: item.image
       }))
     }
   }
