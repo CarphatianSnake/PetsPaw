@@ -61,7 +61,12 @@ export const getBreedsList = createSelector(
       return data.map(item => ({
         id: item.id,
         name: item.name,
-        photo: item.image
+        photo: item.image,
+        temperament: item.temperament,
+        description: item.description,
+        origin: item.origin,
+        lifeSpan: item.life_span,
+        weight: item.weight
       }))
     }
   }

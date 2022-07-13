@@ -11,6 +11,8 @@ const PhotoGrid = (props) => {
   
   const {name, photos} = props
 
+  console.log(photos);
+
   const [onElement, setOnElement] = useState()
   const navigate = useNavigate()
 
@@ -33,7 +35,11 @@ const PhotoGrid = (props) => {
 
     return (
       <div className='breed-hover-element'>
-        <button onClick={onBreed} className='breed-btn'>{name}</button>
+        <button
+          onClick={onBreed}
+          className='breed-btn'>
+            {name}
+        </button>
       </div>
     )
   }
@@ -47,9 +53,23 @@ const PhotoGrid = (props) => {
             const element = breedElement(item.id, item.name)
             return (
             item.photo ? 
-              <div onMouseEnter={(e) => onGridOn(e)} onMouseLeave={(e) => onGridOut(e)} key={item.id} style={{backgroundImage: `url('${item.photo.url}')`}} className='photo-grid-item'>{element}</div> :
-              <div onMouseEnter={(e) => onGridOn(e)} onMouseLeave={(e) => onGridOut(e)} key={item.id} className='photo-grid-item no-photo'>{element}</div>
-                )
+              <div
+                onMouseEnter={(e) => onGridOn(e)}
+                onMouseLeave={(e) => onGridOut(e)}
+                key={item.id}
+                style={{backgroundImage: `url('${item.photo.url}')`}}
+                className='photo-grid-item'>
+                  {element}
+                </div>
+              :
+              <div
+                onMouseEnter={(e) => onGridOn(e)}
+                onMouseLeave={(e) => onGridOut(e)}
+                key={item.id}
+                className='photo-grid-item no-photo'>
+                  {element}
+                </div>
+            )
           })}
         </div>
         <GridNavBtns page={page} totalpages={photos.length - 1} />
