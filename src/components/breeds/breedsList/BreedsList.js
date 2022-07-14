@@ -14,6 +14,7 @@ const BreedsList = () => {
 
   const onBreedChoose = (e) => {
     const breedId = breedsList.filter(item => item.name === e.target.value)[0].id
+    dispatch(breedsSlice.actions.removePhotos())
     dispatch(breedsSlice.actions.breedName(e.target.value.toLowerCase()))
     dispatch(breedsSlice.actions.breedId(breedId))
     navigate(`../${breedId}`)

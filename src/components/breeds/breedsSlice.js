@@ -5,13 +5,17 @@ import useHttp from '../../hooks/useHttp'
 const _apiBase = 'https://api.thecatapi.com/v1/'
 
 const breedsAdapter = createEntityAdapter()
+const singleBreedPhotos = createEntityAdapter()
 
 const initialState = breedsAdapter.getInitialState({
   breedName: '',
   breedId: '',
   breedsLimit: '10',
   breedsReverse: false,
-  breedsStatus: 'idle'
+  breedsStatus: 'idle',
+  singleBreedPhotos: singleBreedPhotos.getInitialState({
+    singleBreedPhotosLoading: 'idle'
+  })
 })
 
 export const fetchBreeds = createAsyncThunk(
@@ -19,6 +23,14 @@ export const fetchBreeds = createAsyncThunk(
   () => {
     const {request} = useHttp();
     return request(`${_apiBase}breeds?attach_breed=0`)
+  }
+)
+
+export const fetchSingleBreedPhotos = createAsyncThunk(
+  'breedsSlice/breedPhotosStatus',
+  (id) => {
+    const {request} = useHttp();
+    return request(`${_apiBase}images/search?size=full&limit=10&breed_id=${id}`)
   }
 )
 
@@ -37,6 +49,10 @@ export const breedsSlice = createSlice({
     },
     breedReverse (state, {payload}) {
       state.breedsReverse = payload
+    },
+    removePhotos (state) {
+      state.singleBreedPhotos.singleBreedPhotosLoading = 'idle'
+      singleBreedPhotos.removeAll(state.singleBreedPhotos)
     }
   },
   extraReducers: (builder) => {
@@ -45,6 +61,10 @@ export const breedsSlice = createSlice({
         state.breedsStatus = 'loaded'
         breedsAdapter.setAll(state, payload)
       })
+      .addCase(fetchSingleBreedPhotos.fulfilled, (state, {payload}) => {
+        state.singleBreedPhotos.singleBreedPhotosLoading = 'loaded'
+        singleBreedPhotos.setAll(state.singleBreedPhotos, payload)
+      })
   }
 })
 
@@ -52,6 +72,7 @@ const {reducer} = breedsSlice
 export default reducer
 
 const selectBreed = breedsAdapter.getSelectors(state => state.breedsSlice).selectAll
+const selectBreedPhotos = singleBreedPhotos.getSelectors(state => state.breedsSlice.singleBreedPhotos).selectAll
 
 export const getBreedsList = createSelector(
   state => state.breedsSlice.breedsStatus,
@@ -70,4 +91,17 @@ export const getBreedsList = createSelector(
       }))
     }
   }
+)
+
+export const getBreedPhotos = createSelector(
+  state => state.breedsSlice.singleBreedPhotos.singleBreedPhotosLoading,
+  selectBreedPhotos,
+  (status, data) => {
+    if (status === 'loaded') {
+      return data.filter(item => item.width > item.height).map(item => ({
+        id: item.id,
+        url: item.url
+      }))
+      }
+    }
 )
