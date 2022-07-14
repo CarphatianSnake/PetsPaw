@@ -10,6 +10,7 @@
 main {
   width: 680px;
   max-height: 860px;
+  position: relative;
   margin: 30px 0;
   border-radius: 20px;
   background: none;
@@ -18,9 +19,20 @@ main {
 section {
   position: relative;
   width: 100%;
-  min-height: 780px;
+  min-height: 800px;
   background: $white;
   border-radius: 20px;
   margin-top: 10px;
   padding: 20px;
+}
+
+.scroll-container {
+  margin-top: 20px;
+  width: 100%;
+  height: 700px;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
 }

@@ -9,6 +9,9 @@ const Gallery = () => {
       <SearchPanel/>
       <section>
         <PageNavigation />
+        <div className='scroll-container'>
+        
+        </div>
       </section>
     </main>
   );
