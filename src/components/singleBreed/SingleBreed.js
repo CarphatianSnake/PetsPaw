@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux/es/exports'
+import { Transition } from 'react-transition-group'
 
 import SearchPanel from '../searchPanel/SearchPanel'
 import PageNavigation from '../pageNavigation/PageNavigation'
 import Spinner from '../spinner'
+import transitions from '../../services/transition'
 
 import { getBreedsList, getBreedPhotos, fetchSingleBreedPhotos } from '../breeds/breedsSlice'
 
@@ -16,6 +18,7 @@ const SingleBreed = () => {
   const breedPhotos = useSelector(getBreedPhotos)
   const isPhotosLoaded = useSelector(state => state.breedsSlice.singleBreedPhotos.singleBreedPhotosLoading)
   const breedID = useSelector(state => state.breedsSlice.breedId)
+  const {duration, defaultStyle, transitionStyles} = transitions(500, 'ease-in-out')
 
   const breed = getBreedInfo.filter(item => item.id === breedID)[0]
 
@@ -24,12 +27,15 @@ const SingleBreed = () => {
   }, [])
 
   const [num, setNum] = useState(0)
+  const [transIn, setTransIn] = useState(false)
 
   const onSlidePoint = (e) => {
-    setNum(e.target.getAttribute('num'))
-    document.querySelectorAll('.slide-point').forEach(item => item.classList.remove('active-slide-point'))
-    e.target.classList.add('active-slide-point')
-
+    setTransIn(false)
+    setTimeout(() => {
+      setNum(e.target.getAttribute('num'))
+      document.querySelectorAll('.slide-point').forEach(item => item.classList.remove('active-slide-point'))
+      e.target.classList.add('active-slide-point')
+    }, duration)
   }
 
   return (
@@ -41,14 +47,20 @@ const SingleBreed = () => {
           {isPhotosLoaded === 'loaded' ? 
           <>
             <div className='breed-photo-container'>
-              {isPhotosLoaded === 'loaded' ? 
-                <img src={breedPhotos[num].url} /> : <Spinner />
-              }
-              
+              <Transition in={transIn} timeout={duration}>
+                {state =>
+                  <img onLoad={() => setTransIn(true)} className='cat-pic' src={breedPhotos[num].url} style={{
+                    ...defaultStyle,
+                    ...transitionStyles[state]
+                  }} />
+                }
+              </Transition>
               <div className="slide-bar">
                 {breedPhotos.map((item, i) => {
                   return (
-                    i === num ? <div key={i} num={i} onClick={(e) => onSlidePoint(e)} className="slide-point active-slide-point"></div> :
+                    i === num ?
+                    <div key={i} num={i} onClick={(e) => onSlidePoint(e)} className="slide-point active-slide-point"></div>
+                    :
                     <div key={i} num={i} onClick={(e) => onSlidePoint(e)} className="slide-point"></div>
                   )
                 })}

@@ -98,10 +98,13 @@
     margin: 10px auto;
     width: 180px;
     height: 34px;
-    background: $white;
+    background-color: $white;
     border-radius: 10px;
     color: $active-pink;
     font-size: 16px;
+    &:hover {
+      background-color: $gray-back;
+    }
   }
 }
 

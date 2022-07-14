@@ -57,21 +57,23 @@ const PhotoGrid = (props) => {
             return (
             item.photo ? 
               <div
+                onLoad={() => setTransIn(true)}
                 onMouseEnter={(e) => onGridOn(e)}
                 onMouseLeave={onGridOut}
                 key={item.id}
                 style={{backgroundImage: `url('${item.photo.url}')`}}
                 className='photo-grid-item'>
                   {element}
-                </div>
+              </div>
               :
               <div
+                onLoad={() => setTransIn(true)}
                 onMouseEnter={(e) => onGridOn(e)}
                 onMouseLeave={onGridOut}
                 key={item.id}
                 className='photo-grid-item no-photo'>
                   {element}
-                </div>
+              </div>
             )
           })}
         </div>
