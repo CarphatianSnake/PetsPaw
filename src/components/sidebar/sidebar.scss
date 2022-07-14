@@ -41,17 +41,18 @@ aside {
             height: 198px;
             border: 4px solid transparent;
             border-radius: 20px;
+            transition: border $transition-delay;
           }
           & .voting-pic {
-            border-color: rgba(255, 255, 255, 0.6);
+            border: 4px solid rgba(255, 255, 255, 0.6);
             background: no-repeat 50% url('./img/voting-pic.png'), #B4B7FF;
           }
           & .breeds-pic {
-            border-color: rgba(255, 255, 255, 0.6);
+            border: 4px solid rgba(255, 255, 255, 0.6);
             background: no-repeat 50% url('./img/breeds-pic.png'), #97EAB9;
           }
           & .gallery-pic {
-            border-color: rgba(255, 255, 255, 0.6);
+            border: 4px solid rgba(255, 255, 255, 0.6);
             background: no-repeat 50% url('./img/gallery-pic.png'), #FFD280;
           }
           & h2 {
@@ -67,24 +68,25 @@ aside {
             font-weight: 500;
             border-radius: 10px;
             background-color: $white;
+            transition: background-color $transition-delay;
           }
         }
 
         &:hover {
           & h2 {
-            background: $hover-pink;
+            background-color: $hover-pink;
           }
           & .nav-pic {
-            border-color: $white;
+            border: 4px solid $white;
           }
         }
-        .active {
+        & .active, &:active {
           & h2 {
-            background: $active-pink;
+            background-color: $active-pink;
             color: $white;
           }
           & .nav-pic {
-            border-color: $hover-pink;
+            border: 4px solid $hover-pink;
           }
         }
       }

@@ -7,9 +7,12 @@
     width: 40px;
     height: 40px;
     border-radius: 10px;
-    background: no-repeat 50% url('./img/back-btn-std.svg'), $hover-pink;
+    background: no-repeat 50% url('./img/back-btn-std.svg');
+    background-color: $hover-pink;
+    transition: background $transition-delay, background-color $transition-delay;
     &:hover {
-      background: no-repeat 50% url('./img/back-btn-hover.svg'), $active-pink;
+      background: no-repeat 50% url('./img/back-btn-hover.svg');
+      background-color: $active-pink;
     }
   }
   & h3 {

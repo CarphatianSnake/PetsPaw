@@ -81,16 +81,17 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: $hover-pink;
+    background-color: $hover-pink;
     margin-right: 5px;
+    transition: background-color $transition-delay;
     &:last-child {
       margin-right: 0;
     }
     &:hover {
-      background: $active-pink;
+      background-color: $active-pink;
     }
   }
   & .active-slide-point {
-    background: $active-pink;
+    background-color: $active-pink;
   }
 }

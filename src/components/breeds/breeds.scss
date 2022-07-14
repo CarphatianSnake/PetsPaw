@@ -10,30 +10,39 @@
     height: 40px;
     border: 2px solid transparent;
     border-radius: 10px;
+    transition: border $transition-delay;
   }
   & .az {
-    background: no-repeat 50% url('./img/sort-az-def.svg'), $gray-back;
+    background: no-repeat 50% url('./img/sort-az-def.svg');
+    background-color: $gray-back;
+    transition: background $transition-delay, background-color $transition-delay;
     &:hover {
-      background: no-repeat 50% url('./img/sort-az-hover.svg'), $gray-back;
-      border-color: $hover-pink;
+      background: no-repeat 50% url('./img/sort-az-hover.svg');
+      background-color: $gray-back;
+      border: 2px solid $hover-pink;
     }
   }
   & .az-active {
-    background: no-repeat 50% url('./img/sort-az-hover.svg'), $gray-back;
-    border-color: $hover-pink;
+    background: no-repeat 50% url('./img/sort-az-hover.svg');
+    background-color: $gray-back;
+    border: 2px solid $hover-pink;
   }
   & .za {
     margin-right: 10px;
-    background: no-repeat 50% url('./img/sort-za-def.svg'), $gray-back;
+    background: no-repeat 50% url('./img/sort-za-def.svg');
+    background-color: $gray-back;
+    transition: background $transition-delay, background-color $transition-delay;
     &:hover {
-      background: no-repeat 50% url('./img/sort-za-hover.svg'), $gray-back;
-      border-color: $hover-pink;
+      background: no-repeat 50% url('./img/sort-za-hover.svg');
+      background-color: $gray-back;
+      border: 2px solid $hover-pink;
     }
   }
   & .za-active {
     margin-right: 10px;
-    background: no-repeat 50% url('./img/sort-za-hover.svg'), $gray-back;
-    border-color: $hover-pink;
+    background: no-repeat 50% url('./img/sort-za-hover.svg');
+    background-color: $gray-back;
+    border: 2px solid $hover-pink;
   }
   & .breeds-slct {
     height: 40px;
@@ -48,8 +57,9 @@
     color: $grey-text;
     outline: 0;
     appearance: none;
+    transition: border $transition-delay;
     &:hover, &:focus {
-      border-color: $hover-pink;
+      border: 2px solid $hover-pink;
     }
   }
   & .breeds {
