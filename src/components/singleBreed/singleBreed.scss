@@ -1,2 +1,97 @@
 @import '../../variables.scss';
 
+.breed-photo-container {
+  min-height: 380px;
+  & img {
+    border-radius: 20px;
+  }
+}
+
+.breed-description {
+  display: flex;
+  flex-direction: column;
+  width: 640px;
+  align-items: center;
+  border: 2px solid $hover-pink;
+  border-radius: 20px;
+  margin-top: 26px;
+}
+
+.breed-header {
+  display: block;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 52px;
+  color: $black-font;
+  background-color: $white;
+  margin-top: -31px;
+  padding: 5px 40px;
+}
+
+.breed-description-text {
+  width: 560px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.breed-characteristics {
+  display: flex;
+  width: 560px;
+  justify-content: space-around;
+  font-size: 16px;
+  line-height: 23px;
+  margin-bottom: 30px;
+}
+
+.breed-char-col {
+  width: 270px;
+  &:first-child {
+    margin-right: 10px;
+  }
+  &:last-child {
+    margin-left: 10px;
+  }
+}
+
+.char-item {
+  margin-bottom: 10px;
+}
+
+.char-header {
+  font-weight: 500;
+  color: $black-font;
+}
+
+
+.slide-bar {
+  margin: 0 auto;
+  width: fit-content;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background: $white;
+  border-radius: 20px;
+  margin-top: -15px;
+  & .slide-point {
+    cursor: pointer;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: $hover-pink;
+    margin-right: 5px;
+    &:last-child {
+      margin-right: 0;
+    }
+    &:hover {
+      background: $active-pink;
+    }
+  }
+  & .active-slide-point {
+    background: $active-pink;
+  }
+}
+

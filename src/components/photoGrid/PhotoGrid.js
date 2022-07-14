@@ -1,9 +1,10 @@
 import { useState } from 'react'
 
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import GridNavBtns from './GridNavBtns'
+import { breedsSlice } from '../breeds/breedsSlice'
 
 import './photoGrid.scss'
 
@@ -11,10 +12,9 @@ const PhotoGrid = (props) => {
   
   const {name, photos} = props
 
-  console.log(photos);
-
   const [onElement, setOnElement] = useState()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const page = useSelector(state => state.pageSlice.gridPage)
 
@@ -23,13 +23,16 @@ const PhotoGrid = (props) => {
     e.target.querySelector('div').classList.add('grid-active')
   }
 
-  const onGridOut = (e) => {
+  const onGridOut = () => {
     onElement.classList.remove('grid-active')
   }
 
   const breedElement = (id, name) => {
 
     const onBreed = () => {
+      dispatch(breedsSlice.actions.removePhotos())
+      dispatch(breedsSlice.actions.breedName(name))
+      dispatch(breedsSlice.actions.breedId(id))
       navigate(`../${id}`)
     }
 
@@ -55,7 +58,7 @@ const PhotoGrid = (props) => {
             item.photo ? 
               <div
                 onMouseEnter={(e) => onGridOn(e)}
-                onMouseLeave={(e) => onGridOut(e)}
+                onMouseLeave={onGridOut}
                 key={item.id}
                 style={{backgroundImage: `url('${item.photo.url}')`}}
                 className='photo-grid-item'>
@@ -64,7 +67,7 @@ const PhotoGrid = (props) => {
               :
               <div
                 onMouseEnter={(e) => onGridOn(e)}
-                onMouseLeave={(e) => onGridOut(e)}
+                onMouseLeave={onGridOut}
                 key={item.id}
                 className='photo-grid-item no-photo'>
                   {element}
