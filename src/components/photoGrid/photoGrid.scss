@@ -67,19 +67,20 @@
     height: 40px;
     width: 122px;
     text-transform: uppercase;
-    background: $hover-pink;
+    background-color: $hover-pink;
     color: $active-pink;
     border-radius: 10px;
     font-size: 12px;
     line-height: 16px;
     letter-spacing: 2px;
     font-weight: 500;
+    transition: background-color 500ms, color 500ms;
     &:hover {
-      background: $active-pink;
+      background-color: $active-pink;
       color: $white;
     }
     &:disabled {
-      background: $gray-back;
+      background-color: $gray-back;
       color: $grey-text
     }
   }
@@ -92,22 +93,28 @@
   justify-content: flex-end;
   width: 100%;
   height: 100%;
-  background: $transp-pink;
   border-radius: 20px;
   & .breed-btn {
     margin: 10px auto;
     width: 180px;
     height: 34px;
-    background-color: $white;
+    background-color: transparent;
     border-radius: 10px;
-    color: $active-pink;
+    color: transparent;
     font-size: 16px;
-    &:hover {
-      background-color: $gray-back;
-    }
+    transition: background-color 500ms, color 500ms;
   }
 }
 
 .grid-active {
   visibility: visible;
+  background-color: $white;
+  transition: background-color 300ms;
+  &:hover {
+    background-color: $transp-pink;
+    & .breed-btn {
+      background-color: $white;
+      color: $active-pink;
+    }
+  }
 }
