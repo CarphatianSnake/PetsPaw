@@ -1,0 +1,82 @@
+@import '../../variables.scss';
+
+.gallery-nav {
+  display: flex;
+  justify-content: space-between;
+  & .upload-button {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    background: no-repeat left;
+    background-image: url('./img/upload-btn.svg');
+    background-position: center left 30px;
+    background-color: $hover-pink;
+    border-radius: 10px;
+    color: $active-pink;
+    transition: background-color $transition-delay, color $transition-delay, background-image $transition-delay;
+    &:hover {
+      background-image: url('./img/upload-btn-hover.svg');
+      background-color: $active-pink;
+      color: $white;
+    }
+  }
+  & .upload-txt {
+    margin: 12px 30px 12px 56px;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+}
+
+.gallery-filters {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  background-color: $gray-back;
+  border-radius: 20px;
+  padding: 0 10px 10px 10px;
+  & .filter-element {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    width: 290px;
+    &:last-of-type {
+      width: 240px;
+    }
+    & .gallery-label {
+      font-size: 10px;
+      line-height: 18px;
+      text-transform: uppercase;
+      margin-left: 10px;
+    }
+    & .gallery-select {
+      appearance: none;
+      outline: none;
+      border-radius: 10px;
+      border: 2px solid transparent;
+      height: 40px;
+      font-size: 16px;
+      color: $black-font;
+      padding-left: 10px;
+      background: no-repeat url('../../assets/img/select-arrow.svg');
+      background-position: center right 10px;
+      background-color: $white;
+      transition: border $transition-delay;
+      &:hover, &:focus-within {
+        border: 2px solid $hover-pink;
+      }
+    }
+  }
+  & .refresh-btn {
+    margin: auto 0 10px 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: no-repeat center url('./img/refresh.svg'), $white;
+    transition: background $transition-delay;
+    &:hover {
+      background: no-repeat center url('./img/refresh-hover.svg'), $active-pink;
+    }
+  }
+}
