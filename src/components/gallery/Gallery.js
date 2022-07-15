@@ -1,9 +1,34 @@
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux/es/exports';
+
+import { fetchBreeds, getBreedsList } from '../breeds/breedsSlice'
+import { gallerySlice, fetchGalleryPhotos, getPhotos } from './gallerySlice';
+
 import SearchPanel from '../searchPanel/SearchPanel';
 import PageNavigation from '../pageNavigation/PageNavigation';
 import FilterElement from './filterElement/FilterElement'
+import Spinner from '../spinner'
 import './gallery.scss';
 
 const Gallery = () => {
+
+  const dispatch = useDispatch()
+  const { order, type, breed, limit } = useSelector(state => state.gallerySlice)
+  const url = `https://api.thecatapi.com/v1/images/search?breed_id=${breed !== 'None' ? breed : ''}&limit=${limit}&order=${order}&size=full`
+
+  useEffect(() => {
+    dispatch(fetchBreeds())
+    dispatch(fetchGalleryPhotos(url))
+  }, [])
+
+  const breedsList = useSelector(getBreedsList)
+  const galleryPhotos = useSelector(getPhotos)
+  const isBreedsLoaded = useSelector(state => state.breedsSlice.breedsStatus)
+  const isPhotosLoaded = useSelector(state => state.gallerySlice.photosLoading)
+
+  if (isPhotosLoaded === 'loaded') {
+    console.log(galleryPhotos);
+  }
 
   return (
     <main>
@@ -16,16 +41,16 @@ const Gallery = () => {
           </button>
         </div>
         <div className='scroll-container'>
-          <nav className="gallery-filters">
-
-            <FilterElement name='Order' />
-            <FilterElement name='Type' />
-            <FilterElement name='Breed' />
-            <FilterElement name='Limit' />
-
-            <button className="refresh-btn"></button>
-
-          </nav>
+          {isBreedsLoaded === 'loaded' ?
+            (<nav className="gallery-filters">
+              <FilterElement name='Order' />
+              <FilterElement name='Type' />
+              <FilterElement name='Breed' data={breedsList} />
+              <FilterElement name='Limit' />
+              <button className="refresh-btn"></button>
+            </nav>)
+            : <Spinner />
+          }
         </div>
       </section>
     </main>
