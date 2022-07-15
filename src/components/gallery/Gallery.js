@@ -42,23 +42,22 @@ const Gallery = () => {
             <span className='upload-txt'>Upload</span>
           </button>
         </div>
-        {isPhotosLoaded === 'loaded' ? 
-            <div className='scroll-container'>
-              {isBreedsLoaded === 'loaded' ?
-                (<nav className="gallery-filters">
-                  <FilterElement name='Order' />
-                  <FilterElement name='Type' />
-                  <FilterElement name='Breed' data={breedsList} />
-                  <FilterElement name='Limit' />
-                  <button onClick={onRefresh} className="refresh-btn"></button>
-                </nav>)
-                : <Spinner />
-              }
-              {isPhotosLoaded === 'loaded' ? <PhotoGrid name='gallery' photos={galleryPhotos} /> : <Spinner />}
+        <div className='scroll-container'>
+              <nav className="gallery-filters">
+                
+                  {isBreedsLoaded === 'loaded' ? 
+                  <>
+                    <FilterElement name='Order' />
+                    <FilterElement name='Type' />
+                    <FilterElement name='Breed' data={breedsList} />
+                    <FilterElement name='Limit' />
+                    <button onClick={onRefresh} className="refresh-btn"></button>
+                  </> : null}
+                  
+                
+              </nav>
+              {isPhotosLoaded === 'loaded' ? <PhotoGrid name='gallery' photos={galleryPhotos} unmountOnExit /> : <Spinner />}
             </div>
-            :
-          <Spinner />
-        }
       </section>
     </main>
   );
