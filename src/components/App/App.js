@@ -22,7 +22,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Homepage />} />
           <Route path='voting/' element={<Votes />} />
-          <Route path='breeds/' element={<Breeds />} />
+          <Route path='breeds/' element={<Breeds/>} />
           <Route path='gallery/' element={<Gallery />} />
           <Route path={breedId} element={<SingleBreed />} />
         </Routes>

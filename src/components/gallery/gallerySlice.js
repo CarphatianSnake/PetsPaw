@@ -37,6 +37,9 @@ export const gallerySlice = createSlice({
     },
     getLimit(state, {payload}) {
       state.limit = +payload
+    },
+    onRefresh(state) {
+      state.photosLoading = 'idle'
     }
   },
   extraReducers: (builder) => {

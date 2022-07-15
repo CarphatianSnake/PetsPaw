@@ -47,39 +47,75 @@ const PhotoGrid = (props) => {
     )
   }
 
-  const grid = (page) => {
+  const galeryElement = (id, name) => {
+
+    const onFav = () => {
+      console.log('Toggle favorite');
+    }
 
     return (
-      <>
+      <div className='gallery-hover-element'>
+        <button
+          onClick={onFav}
+          className='gallery-btn'>
+        </button>
+      </div>
+    )
+  }
+
+  const grid = (page) => {
+    if (name === 'breeds') {
+      return (
+        <>
+          <div className="photo-grid">
+            {photos[page].map(item => {
+              const element = breedElement(item.id, item.name)
+              return (
+              item.photo ? 
+                <div
+                  onMouseEnter={(e) => onGridOn(e)}
+                  onMouseLeave={onGridOut}
+                  key={item.id}
+                  style={{backgroundImage: `url('${item.photo.url}')`}}
+                  className='photo-grid-item'>
+                    {element}
+                </div>
+                :
+                <div
+                  onMouseEnter={(e) => onGridOn(e)}
+                  onMouseLeave={onGridOut}
+                  key={item.id}
+                  className='photo-grid-item no-photo'>
+                    {element}
+                </div>
+              )
+            })}
+          </div>
+          <GridNavBtns page={page} totalpages={photos.length - 1} />
+        </>
+      )
+    }
+
+    if (name === 'gallery') {
+      return (
         <div className="photo-grid">
-          {photos[page].map(item => {
-            const element = breedElement(item.id, item.name)
+          {photos.map(item => {
+            const element = galeryElement(item.id, item.name)
             return (
-            item.photo ? 
               <div
-                onLoad={() => setTransIn(true)}
                 onMouseEnter={(e) => onGridOn(e)}
                 onMouseLeave={onGridOut}
                 key={item.id}
-                style={{backgroundImage: `url('${item.photo.url}')`}}
+                style={{backgroundImage: `url('${item.url}')`}}
                 className='photo-grid-item'>
-                  {element}
-              </div>
-              :
-              <div
-                onLoad={() => setTransIn(true)}
-                onMouseEnter={(e) => onGridOn(e)}
-                onMouseLeave={onGridOut}
-                key={item.id}
-                className='photo-grid-item no-photo'>
                   {element}
               </div>
             )
           })}
         </div>
-        <GridNavBtns page={page} totalpages={photos.length - 1} />
-      </>
-    )
+      )
+    }
+    
   }
 
   return grid(page)

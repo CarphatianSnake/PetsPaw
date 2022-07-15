@@ -2,13 +2,14 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
 
 import { fetchBreeds, getBreedsList } from '../breeds/breedsSlice'
-import { gallerySlice, fetchGalleryPhotos, getPhotos } from './gallerySlice';
+import { onRefresh, fetchGalleryPhotos, getPhotos } from './gallerySlice';
 
 import SearchPanel from '../searchPanel/SearchPanel';
 import PageNavigation from '../pageNavigation/PageNavigation';
 import FilterElement from './filterElement/FilterElement'
 import Spinner from '../spinner'
 import './gallery.scss';
+import PhotoGrid from '../photoGrid/PhotoGrid';
 
 const Gallery = () => {
 
@@ -26,8 +27,9 @@ const Gallery = () => {
   const isBreedsLoaded = useSelector(state => state.breedsSlice.breedsStatus)
   const isPhotosLoaded = useSelector(state => state.gallerySlice.photosLoading)
 
-  if (isPhotosLoaded === 'loaded') {
-    console.log(galleryPhotos);
+  const onRefresh = () => {
+    // dispatch(onRefresh())
+    dispatch(fetchGalleryPhotos(url))
   }
 
   return (
@@ -40,18 +42,23 @@ const Gallery = () => {
             <span className='upload-txt'>Upload</span>
           </button>
         </div>
-        <div className='scroll-container'>
-          {isBreedsLoaded === 'loaded' ?
-            (<nav className="gallery-filters">
-              <FilterElement name='Order' />
-              <FilterElement name='Type' />
-              <FilterElement name='Breed' data={breedsList} />
-              <FilterElement name='Limit' />
-              <button className="refresh-btn"></button>
-            </nav>)
-            : <Spinner />
-          }
-        </div>
+        {isPhotosLoaded === 'loaded' ? 
+            <div className='scroll-container'>
+              {isBreedsLoaded === 'loaded' ?
+                (<nav className="gallery-filters">
+                  <FilterElement name='Order' />
+                  <FilterElement name='Type' />
+                  <FilterElement name='Breed' data={breedsList} />
+                  <FilterElement name='Limit' />
+                  <button onClick={onRefresh} className="refresh-btn"></button>
+                </nav>)
+                : <Spinner />
+              }
+              {isPhotosLoaded === 'loaded' ? <PhotoGrid name='gallery' photos={galleryPhotos} /> : <Spinner />}
+            </div>
+            :
+          <Spinner />
+        }
       </section>
     </main>
   );
