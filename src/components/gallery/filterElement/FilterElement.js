@@ -45,7 +45,9 @@ const FilterElement = (props) => {
         dispatch(getLimit(value))
         break
       case 'Breed':
-        dispatch(getBreed(breedsList.filter(item => item.name === value)[0].id))
+        dispatch(getBreed(
+          [{name: 'None', id: 'None'}].concat(breedsList).filter(item => item.name === value)[0].id
+        ))
         break
     }
   }

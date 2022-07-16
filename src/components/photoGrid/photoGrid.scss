@@ -128,6 +128,16 @@
       background: no-repeat center url('./img/fav-hover.svg'), $active-pink;
     }
   }
+  & .active-gallery-btn {
+    height: 40px;
+    width: 40px;
+    border-radius: 10px;
+    background: no-repeat center url('./img/fav-active.svg'), $white;
+    transition: background $transition-delay;
+    &:hover {
+      background: no-repeat center url('./img/fav-active-hover.svg'), $active-pink;
+    }
+  }
 }
 
 .grid-active {

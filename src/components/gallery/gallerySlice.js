@@ -2,8 +2,6 @@ import { createSlice, createEntityAdapter, createAsyncThunk, createSelector } fr
 
 import useHttp from '../../hooks/useHttp'
 
-// const _apiBase = 'https://api.thecatapi.com/v1/'
-
 const galleryAdapter = createEntityAdapter()
 
 const initialState = galleryAdapter.getInitialState({
@@ -37,9 +35,6 @@ export const gallerySlice = createSlice({
     },
     getLimit(state, {payload}) {
       state.limit = +payload
-    },
-    onRefresh(state) {
-      state.photosLoading = 'idle'
     }
   },
   extraReducers: (builder) => {

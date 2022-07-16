@@ -2,34 +2,37 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
 
 import { fetchBreeds, getBreedsList } from '../breeds/breedsSlice'
-import { onRefresh, fetchGalleryPhotos, getPhotos } from './gallerySlice';
+import { fetchGalleryPhotos, getPhotos } from './gallerySlice';
+import { fetchFavourites, getFavourites } from '../favourites/favouritesSlice'
 
 import SearchPanel from '../searchPanel/SearchPanel';
 import PageNavigation from '../pageNavigation/PageNavigation';
 import FilterElement from './filterElement/FilterElement'
 import Spinner from '../spinner'
-import './gallery.scss';
 import PhotoGrid from '../photoGrid/PhotoGrid';
 
-const Gallery = () => {
+import './gallery.scss';
 
+const Gallery = () => {
   const dispatch = useDispatch()
   const { order, type, breed, limit } = useSelector(state => state.gallerySlice)
-  const url = `https://api.thecatapi.com/v1/images/search?breed_id=${breed !== 'None' ? breed : ''}&limit=${limit}&order=${order}&size=full`
+  const url = `https://api.thecatapi.com/v1/images/search?${breed === 'None' ? '' : `breed_id=${breed}&`}limit=${limit}&order=${order}&size=full`
 
   useEffect(() => {
+    dispatch(fetchFavourites())
     dispatch(fetchBreeds())
     dispatch(fetchGalleryPhotos(url))
   }, [])
 
   const breedsList = useSelector(getBreedsList)
   const galleryPhotos = useSelector(getPhotos)
+  const favouritesList = useSelector(getFavourites)
   const isBreedsLoaded = useSelector(state => state.breedsSlice.breedsStatus)
   const isPhotosLoaded = useSelector(state => state.gallerySlice.photosLoading)
+  const isFavsLoaded = useSelector(state => state.favouritesSlice.favouritesLoading)
 
   const onRefresh = () => {
-    // dispatch(onRefresh())
-    dispatch(fetchGalleryPhotos(url))
+    dispatch(fetchGalleryPhotos(url))    
   }
 
   return (
@@ -53,10 +56,13 @@ const Gallery = () => {
                     <FilterElement name='Limit' />
                     <button onClick={onRefresh} className="refresh-btn"></button>
                   </> : null}
-                  
                 
               </nav>
-              {isPhotosLoaded === 'loaded' ? <PhotoGrid name='gallery' photos={galleryPhotos} unmountOnExit /> : <Spinner />}
+              {isPhotosLoaded === 'loaded' ? 
+                <PhotoGrid onLoad={() => setRefresh(true)} name='gallery' photos={galleryPhotos} />
+              :
+                <Spinner />
+              }
             </div>
       </section>
     </main>

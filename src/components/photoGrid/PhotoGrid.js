@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import GridNavBtns from './GridNavBtns'
-import { breedsSlice } from '../breeds/breedsSlice'
+import { breedId, breedName, removePhotos } from '../breeds/breedsSlice'
+import { getFavourites } from '../favourites/favouritesSlice'
 
 import './photoGrid.scss'
 
@@ -13,14 +14,17 @@ const PhotoGrid = (props) => {
   const {name, photos} = props
 
   const [onElement, setOnElement] = useState()
+  const [favCheck, setFavCheck] = useState(false)
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const page = useSelector(state => state.pageSlice.gridPage)
+  const favsList = useSelector(getFavourites)
 
-  const onGridOn = (e) => {
+  const onGridOn = (e, id) => {
     setOnElement(e.target.querySelector('div'))
     e.target.querySelector('div').classList.add('grid-active')
+    setFavCheck(favsList.filter(item => item.imageID === id)[0])
   }
 
   const onGridOut = () => {
@@ -30,9 +34,9 @@ const PhotoGrid = (props) => {
   const breedElement = (id, name) => {
 
     const onBreed = () => {
-      dispatch(breedsSlice.actions.removePhotos())
-      dispatch(breedsSlice.actions.breedName(name))
-      dispatch(breedsSlice.actions.breedId(id))
+      dispatch(removePhotos())
+      dispatch(breedName(name))
+      dispatch(breedId(id))
       navigate(`../${id}`)
     }
 
@@ -47,17 +51,32 @@ const PhotoGrid = (props) => {
     )
   }
 
-  const galeryElement = (id, name) => {
+  const galeryElement = (id) => {
 
-    const onFav = () => {
+    const onFav = (e) => {
       console.log('Toggle favorite');
+      const buttonClass = e.target.classList
+      if (buttonClass.contains('gallery-btn')) {
+        buttonClass.remove('gallery-btn')
+        buttonClass.add('active-gallery-btn')
+      } else {
+        buttonClass.remove('active-gallery-btn')
+        buttonClass.add('gallery-btn')
+      }
     }
+
+    const isFav = () => {
+      
+      return favCheck ? 'active-gallery-btn' : 'gallery-btn'
+    }
+
+    const btnCls = isFav()
 
     return (
       <div className='gallery-hover-element'>
         <button
-          onClick={onFav}
-          className='gallery-btn'>
+          onClick={(e) => onFav(e)}
+          className={btnCls}>
         </button>
       </div>
     )
@@ -100,10 +119,10 @@ const PhotoGrid = (props) => {
       return (
         <div className="photo-grid">
           {photos.map(item => {
-            const element = galeryElement(item.id, item.name)
+            const element = galeryElement(item.id)
             return (
               <div
-                onMouseEnter={(e) => onGridOn(e)}
+                onMouseEnter={(e) => onGridOn(e, item.id)}
                 onMouseLeave={onGridOut}
                 key={item.id}
                 style={{backgroundImage: `url('${item.url}')`}}
