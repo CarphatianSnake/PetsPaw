@@ -4,7 +4,6 @@ import SearchPanel from '../searchPanel/SearchPanel'
 import PageNavigation from '../pageNavigation/PageNavigation'
 import VotingImage from './votingImage/VotingImage'
 import VotingLog from './votingLog/VotingLog'
-import Spinner from '../spinner'
 
 import './votes.scss'
 

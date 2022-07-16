@@ -26,10 +26,8 @@ const Gallery = () => {
 
   const breedsList = useSelector(getBreedsList)
   const galleryPhotos = useSelector(getPhotos)
-  const favouritesList = useSelector(getFavourites)
   const isBreedsLoaded = useSelector(state => state.breedsSlice.breedsStatus)
   const isPhotosLoaded = useSelector(state => state.gallerySlice.photosLoading)
-  const isFavsLoaded = useSelector(state => state.favouritesSlice.favouritesLoading)
 
   const onRefresh = () => {
     dispatch(fetchGalleryPhotos(url))    

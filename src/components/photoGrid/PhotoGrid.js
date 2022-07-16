@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom'
 
 import GridNavBtns from './GridNavBtns'
 import { breedId, breedName, removePhotos } from '../breeds/breedsSlice'
-import { getFavourites } from '../favourites/favouritesSlice'
+import { getFavourites, removeFromFav, fetchFavourites } from '../favourites/favouritesSlice'
+import { addToFav } from '../votes/vSlice'
 
 import './photoGrid.scss'
 
@@ -20,6 +21,8 @@ const PhotoGrid = (props) => {
 
   const page = useSelector(state => state.pageSlice.gridPage)
   const favsList = useSelector(getFavourites)
+  const isFavDelError = useSelector(state => state.favouritesSlice.favDeleting)
+  const isFavLoaded = useSelector(state => state.favouritesSlice.favouritesLoading)
 
   const onGridOn = (e, id) => {
     setOnElement(e.target.querySelector('div'))
@@ -53,13 +56,21 @@ const PhotoGrid = (props) => {
 
   const galeryElement = (id) => {
 
+    if (isFavDelError === 'error') {
+      dispatch(removeFromFav(favId))
+    }
+
     const onFav = (e) => {
-      console.log('Toggle favorite');
       const buttonClass = e.target.classList
       if (buttonClass.contains('gallery-btn')) {
+        dispatch(addToFav(id))
+        dispatch(fetchFavourites())
         buttonClass.remove('gallery-btn')
         buttonClass.add('active-gallery-btn')
-      } else {
+      } else if (isFavLoaded === 'loaded') {
+        const favId = favsList.filter(item => item.imageID === id)[0].id
+        dispatch(removeFromFav(favId))
+        dispatch(fetchFavourites())
         buttonClass.remove('active-gallery-btn')
         buttonClass.add('gallery-btn')
       }
@@ -75,7 +86,7 @@ const PhotoGrid = (props) => {
     return (
       <div className='gallery-hover-element'>
         <button
-          onClick={(e) => onFav(e)}
+          onClick={(e) => onFav(e, id)}
           className={btnCls}>
         </button>
       </div>
