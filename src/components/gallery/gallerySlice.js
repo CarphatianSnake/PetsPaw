@@ -10,7 +10,11 @@ const initialState = galleryAdapter.getInitialState({
   type: 'All',
   breed: 'None',
   limit: 5,
-  showModal: false
+  showModal: false,
+  uploadedFile: {
+    name: null,
+    url: null
+  }
 })
 
 export const fetchGalleryPhotos = createAsyncThunk(
@@ -39,6 +43,9 @@ export const gallerySlice = createSlice({
     },
     showModal(state, {payload}) {
       state.showModal = payload
+    },
+    uploadedFile(state, {payload}) {
+      state.uploadedFile = payload
     }
   },
   extraReducers: (builder) => {
@@ -53,7 +60,7 @@ export const gallerySlice = createSlice({
 
 const {reducer} = gallerySlice
 export default reducer
-export const {getOrder, getType, getBreed, getLimit, showModal} = gallerySlice.actions
+export const {getOrder, getType, getBreed, getLimit, showModal, uploadedFile} = gallerySlice.actions
 
 const selectGalleryPhotos = galleryAdapter.getSelectors(state => state.gallerySlice).selectAll
 
