@@ -2,14 +2,15 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
 
 import { fetchBreeds, getBreedsList } from '../breeds/breedsSlice'
-import { fetchGalleryPhotos, getPhotos } from './gallerySlice';
-import { fetchFavourites, getFavourites } from '../favourites/favouritesSlice'
+import { fetchGalleryPhotos, getPhotos, showModal } from './gallerySlice';
+import { fetchFavourites } from '../favourites/favouritesSlice'
 
 import SearchPanel from '../searchPanel/SearchPanel';
 import PageNavigation from '../pageNavigation/PageNavigation';
 import FilterElement from './filterElement/FilterElement'
 import Spinner from '../spinner'
 import PhotoGrid from '../photoGrid/PhotoGrid';
+import GalleryModal from './modal/GalleryModal';
 
 import './gallery.scss';
 
@@ -34,36 +35,40 @@ const Gallery = () => {
   }
 
   return (
-    <main>
-      <SearchPanel/>
-      <section>
-        <div className="gallery-nav">
-          <PageNavigation />
-          <button className='upload-button'>
-            <span className='upload-txt'>Upload</span>
-          </button>
-        </div>
-        <div className='scroll-container'>
-              <nav className="gallery-filters">
-                
-                  {isBreedsLoaded === 'loaded' ? 
-                  <>
-                    <FilterElement name='Order' />
-                    <FilterElement name='Type' />
-                    <FilterElement name='Breed' data={breedsList} />
-                    <FilterElement name='Limit' />
-                    <button onClick={onRefresh} className="refresh-btn"></button>
-                  </> : null}
-                
-              </nav>
-              {isPhotosLoaded === 'loaded' ? 
-                <PhotoGrid onLoad={() => setRefresh(true)} name='gallery' photos={galleryPhotos} />
-              :
-                <Spinner />
-              }
-            </div>
-      </section>
-    </main>
+    <>
+      <main>
+        <SearchPanel/>
+        <section>
+          <div className="gallery-nav">
+            <PageNavigation />
+            <button className='upload-button' onClick={() => dispatch(showModal(true))}>
+              <span className='upload-txt'>Upload</span>
+            </button>
+          </div>
+          <div className='scroll-container'>
+                <nav className="gallery-filters">
+                  
+                    {isBreedsLoaded === 'loaded' ? 
+                    <>
+                      <FilterElement name='Order' />
+                      <FilterElement name='Type' />
+                      <FilterElement name='Breed' data={breedsList} />
+                      <FilterElement name='Limit' />
+                      <button onClick={onRefresh} className="refresh-btn"></button>
+                    </> : null}
+                  
+                </nav>
+                {isPhotosLoaded === 'loaded' ? 
+                  <PhotoGrid onLoad={() => setRefresh(true)} name='gallery' photos={galleryPhotos} />
+                :
+                  <Spinner />
+                }
+              </div>
+        </section>
+      </main>
+      
+      <GalleryModal />
+    </>
   );
 }
 
