@@ -17,7 +17,7 @@ import './gallery.scss';
 const Gallery = () => {
   const dispatch = useDispatch()
   const { order, type, breed, limit } = useSelector(state => state.gallerySlice)
-  const url = `https://api.thecatapi.com/v1/images/search?${breed === 'None' ? '' : `breed_id=${breed}&`}limit=${limit}&order=${order}&size=full`
+  const url = `search?${breed === 'None' ? '' : `breed_id=${breed}&`}limit=${limit}&order=${order}&size=full`
 
   useEffect(() => {
     dispatch(fetchFavourites())
@@ -29,6 +29,7 @@ const Gallery = () => {
   const galleryPhotos = useSelector(getPhotos)
   const isBreedsLoaded = useSelector(state => state.breedsSlice.breedsStatus)
   const isPhotosLoaded = useSelector(state => state.gallerySlice.photosLoading)
+  const showMod = useSelector(state => state.gallerySlice.showModal)
 
   const onRefresh = () => {
     dispatch(fetchGalleryPhotos(url))    
@@ -67,7 +68,7 @@ const Gallery = () => {
         </section>
       </main>
       
-      <GalleryModal />
+      {showMod ? <GalleryModal /> : null}
     </>
   );
 }

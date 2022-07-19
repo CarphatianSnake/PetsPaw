@@ -1,6 +1,6 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
-import { showModal, uploadedFile } from '../gallerySlice'
+import { showModal, uploadedFile, resetUploadStatus } from '../gallerySlice'
 
 import DragDrop from './DragDrop'
 
@@ -9,30 +9,29 @@ import '../gallery.scss'
 const GalleryModal = () => {
 
   const dispatch = useDispatch()
-  const showMod = useSelector(state => state.gallerySlice.showModal)
+
+  const hideModal = () => {
+    dispatch(showModal(false))
+    dispatch(uploadedFile({name: null, url: null}))
+    dispatch(resetUploadStatus())
+  }
 
   const onClose = (e) => {
     const cont = document.querySelector('.modal-container')
     const window = cont.querySelector('.modal-window')
     if (e.target !== window && e.target === cont) {
-      dispatch(showModal(false))
-      dispatch(uploadedFile({name: null, url: null}))
+      hideModal()
     }
   }
 
   return (
-    <div onClick={(e) => onClose(e)} className={`modal-container  ${showMod ? 'show-modal' : 'hide-modal'}`}>
+    <div onClick={(e) => onClose(e)} className='modal-container'>
       <div className='modal-window'>
         <button
           className='modal-close'
-          onClick={() => {
-            dispatch(showModal(false))
-            dispatch(uploadedFile({name: null, url: null}))
-          }}>
+          onClick={hideModal}>
         </button>
-        <div className="scroll-container">
-          <DragDrop />
-        </div>
+        <DragDrop />
       </div>
     </div>
   )
