@@ -12,7 +12,6 @@ const VotingLog = () => {
 
   const votesData = useSelector(getVotesData)
   const favsData = useSelector(getFavsData)
-  const isPhotoLoaded = useSelector(state => state.vSlice.photoStatus)
   const isVotesLoading = useSelector(state => state.vSlice.votes.votesStatus)
   const isFavsLoading = useSelector(state => state.vSlice.favs.favsStatus)
 

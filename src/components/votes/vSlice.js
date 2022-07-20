@@ -75,24 +75,18 @@ const vSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder
-      .addCase(fetchPhoto.pending, state => {state.photoStatus = 'pending'})
       .addCase(fetchPhoto.fulfilled, (state, {payload}) => {
         state.photoStatus = 'loaded'
         photoAdapter.setAll(state, payload)
       })
-      .addCase(fetchPhoto.rejected, state => {state.photoStatus = 'error'})
-      .addCase(fetchVotes.pending, state => {state.votes.votesStatus = 'pending'})
       .addCase(fetchVotes.fulfilled, (state, {payload}) => {
         state.votes.votesStatus = 'loaded'
         votesAdapter.setAll(state.votes, payload)
       })
-      .addCase(fetchVotes.rejected, state => {state.votes.votesStatus = 'error'})
-      .addCase(fetchFavs.pending, state => {state.favs.favsStatus = 'pending'})
       .addCase(fetchFavs.fulfilled, (state, {payload}) => {
         state.favs.favsStatus = 'loaded'
         favsAdapter.setAll(state.favs, payload)
       })
-      .addCase(fetchFavs.rejected, state => {state.favs.favsStatus = 'error'})
       .addCase(postLike.fulfilled, state => {state.postStatus = true})
       .addCase(postDislike.fulfilled, state => {state.postStatus = true})
       .addDefaultCase(() => {})

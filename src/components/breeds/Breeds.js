@@ -9,7 +9,7 @@ import BreedsList from './breedsList/BreedsList'
 import SortBtns from './sortBtns/SortBtns'
 import PhotoGrid from '../photoGrid/PhotoGrid'
 import Spinner from '../spinner'
-import { fetchBreeds, breedsSlice, getBreedsList } from './breedsSlice'
+import { fetchBreeds, breedsSlice, getBreedsList, breedsLimit } from './breedsSlice'
 import { pageSlice } from '../photoGrid/pageSlice'
 import store from "../store/store"
 
@@ -44,7 +44,7 @@ const Breeds = () => {
   }
 
   const changeLimit = (e) => {
-    dispatch(breedsSlice.actions.breedsLimit(e.target.value))
+    dispatch(breedsLimit(e.target.value))
     dispatch(pageSlice.actions.pageRst())
   }
 

@@ -70,6 +70,7 @@ export const breedsSlice = createSlice({
 
 const {reducer} = breedsSlice
 export default reducer
+export const {breedName, breedId, breedsLimit, breedReverse, removePhotos} = breedsSlice.actions
 
 const selectBreed = breedsAdapter.getSelectors(state => state.breedsSlice).selectAll
 const selectBreedPhotos = singleBreedPhotos.getSelectors(state => state.breedsSlice.singleBreedPhotos).selectAll
