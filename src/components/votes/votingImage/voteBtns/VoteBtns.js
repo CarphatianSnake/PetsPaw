@@ -36,10 +36,10 @@ const VoteBtns = () => {
 
   return (
     <div className="votes-btns">
-    <button onClick={() => {makeVote(photoData.id, 'like')}} className='vote-btn like-btn'></button>
-    <button onClick={() => {makeVote(photoData.id, 'fav')}} className={isActive ? 'vote-btn fav-btn active-btn' : 'vote-btn fav-btn'}></button>
-    <button onClick={() => {makeVote(photoData.id, 'dislike')}} className='vote-btn dislike-btn'></button>
-  </div>
+      <button onClick={() => {makeVote(photoData.id, 'like')}} className='vote-btn like-btn' />
+      <button onClick={() => {makeVote(photoData.id, 'fav')}} className={isActive ? 'vote-btn fav-btn active-btn' : 'vote-btn fav-btn'} />
+      <button onClick={() => {makeVote(photoData.id, 'dislike')}} className='vote-btn dislike-btn' />
+    </div>
   )
 }
 

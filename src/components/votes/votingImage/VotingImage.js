@@ -15,13 +15,14 @@ const VotingImage = () => {
 
   useEffect(() => {
     dispatch(fetchPhoto())
+    // eslint-disable-next-line
   }, []);
   
   return (
     <div className="photo-container">
       {isPhotoLoading === 'loaded' ? 
         <>
-          <img src={photoData.url} />
+          <img src={photoData.url} alt='Cat' />
           <VoteBtns />
         </> : 
         <Spinner />} 

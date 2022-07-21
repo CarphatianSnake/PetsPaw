@@ -30,6 +30,8 @@ const FilterElement = (props) => {
     case 'Breed':
       selectType = [...breed].concat(data.map(item => item.name))
       break
+    default:
+      break
   }
 
   const onFilter = (e) => {
@@ -48,6 +50,8 @@ const FilterElement = (props) => {
         dispatch(getBreed(
           [{name: 'None', id: 'None'}].concat(breedsList).filter(item => item.name === value)[0].id
         ))
+        break
+      default:
         break
     }
   }

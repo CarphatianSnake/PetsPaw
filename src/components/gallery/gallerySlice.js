@@ -33,7 +33,7 @@ export const postPhoto = createAsyncThunk(
         body: formData
       })
       if (!response.ok) {
-        throw new Error(`Couldn't fetch ${url}, status ${response.status}`)
+        throw new Error(`Couldn't fetch ${`${_apiBase}upload`}, status ${response.status}`)
       }
       const data = await response.json()
       return data

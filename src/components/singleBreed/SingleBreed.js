@@ -24,6 +24,7 @@ const SingleBreed = () => {
 
   useEffect(() => {
     dispatch(fetchSingleBreedPhotos(breed.id))
+    // eslint-disable-next-line
   }, [])
 
   const [num, setNum] = useState(0)
@@ -49,7 +50,7 @@ const SingleBreed = () => {
             <div className='breed-photo-container'>
               <Transition in={transIn} timeout={duration}>
                 {state =>
-                  <img onLoad={() => setTransIn(true)} className='cat-pic' src={breedPhotos[num].url} style={{
+                  <img onLoad={() => setTransIn(true)} className='cat-pic' src={breedPhotos[num].url} alt='Cat' style={{
                     ...defaultStyle,
                     ...transitionStyles[state]
                   }} />
@@ -59,9 +60,9 @@ const SingleBreed = () => {
                 {breedPhotos.map((item, i) => {
                   return (
                     i === num ?
-                    <div key={i} num={i} onClick={(e) => onSlidePoint(e)} className="slide-point active-slide-point"></div>
+                    <div key={i} num={i} onClick={(e) => onSlidePoint(e)} className="slide-point active-slide-point" />
                     :
-                    <div key={i} num={i} onClick={(e) => onSlidePoint(e)} className="slide-point"></div>
+                    <div key={i} num={i} onClick={(e) => onSlidePoint(e)} className="slide-point" />
                   )
                 })}
               </div>

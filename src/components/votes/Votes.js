@@ -17,8 +17,8 @@ const Votes = () => {
       <section>
         <PageNavigation />
         <div className='scroll-container'>
-          <VotingImage/>
-          {isPhotoLoaded === 'loaded' ? <VotingLog/> : null}
+          <VotingImage />
+          {isPhotoLoaded === 'loaded' ? <VotingLog /> : null}
         </div>
       </section>
     </main>

@@ -17,10 +17,12 @@ const VotingLog = () => {
 
   useEffect(() => {
     (dispatch(fetchVotes()))
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     dispatch(fetchFavs())
+    // eslint-disable-next-line
   }, []);
 
   const collectLogData = () => {
@@ -62,7 +64,7 @@ const VotingLog = () => {
                 <span className="log-time">{time}</span>
                 <span className='log-text'>Image ID: <span className='log-photo-id'>{id}</span> {text}</span>
               </div>
-              <div className={`log-action log-action-${action.toLowerCase()}-pic`}></div>
+              <div className={`log-action log-action-${action.toLowerCase()}-pic`} />
             </li>
           )
         })

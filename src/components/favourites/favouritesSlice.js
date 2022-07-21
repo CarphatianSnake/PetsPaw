@@ -60,9 +60,10 @@ export const getFavourites = createSelector(
     if (status === 'loaded') {
       return data.map(item => {
         return {
-          id: item.id,
-          imageID: item.image_id,
-          url: item.image.url
+          favId: item.id,
+          id: item.image.id,
+          url: item.image.url,
+          time: item.created_at
         }
       })
     }

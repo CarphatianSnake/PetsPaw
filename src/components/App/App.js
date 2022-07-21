@@ -7,6 +7,7 @@ import Breeds from '../breeds/Breeds';
 import Gallery from '../gallery/Gallery';
 import Votes from '../votes/Votes';
 import SingleBreed from '../singleBreed/SingleBreed';
+import Favourites from '../favourites/Favourites';
 
 import './app.scss';
 
@@ -21,10 +22,11 @@ function App() {
 
         <Routes>
           <Route path='/' element={<Homepage />} />
-          <Route path='voting/' element={<Votes />} />
-          <Route path='breeds/' element={<Breeds/>} />
-          <Route path='gallery/' element={<Gallery />} />
+          <Route path='voting' element={<Votes />} />
+          <Route path='breeds' element={<Breeds/>} />
+          <Route path='gallery' element={<Gallery />} />
           <Route path={breedId} element={<SingleBreed />} />
+          <Route path='favourites' element={<Favourites />} />
         </Routes>
         
       </div>

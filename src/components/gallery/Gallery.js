@@ -23,6 +23,7 @@ const Gallery = () => {
     dispatch(fetchFavourites())
     dispatch(fetchBreeds())
     dispatch(fetchGalleryPhotos(url))
+    // eslint-disable-next-line
   }, [])
 
   const breedsList = useSelector(getBreedsList)
@@ -60,7 +61,7 @@ const Gallery = () => {
                   
                 </nav>
                 {isPhotosLoaded === 'loaded' ? 
-                  <PhotoGrid onLoad={() => setRefresh(true)} name='gallery' photos={galleryPhotos} />
+                  <PhotoGrid name='gallery' photos={galleryPhotos} />
                 :
                   <Spinner />
                 }

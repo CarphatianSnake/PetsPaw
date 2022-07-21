@@ -28,12 +28,12 @@ const DragDrop = () => {
     }
   }
 
-  const innerElement = fileInfo.url ? <img className='uploading-img' src={fileInfo.url} /> : <p className='dropzone-inner-txt'><span>Drag here</span> your file or <span>Click here</span> to upload</p>
+  const innerElement = fileInfo.url ? <img className='uploading-img' src={fileInfo.url} alt='File preview' /> : <p className='dropzone-inner-txt'><span>Drag here</span> your file or <span>Click here</span> to upload</p>
 
   return (
     <>
       <h3 className='upload-header'>Upload a .jpg or .png Cat Image</h3>
-      <p className='upload-header-text'>Any uploads must comply with the <a href='https://thecatapi.com/privacy' target='_blank'>upload guidelines</a> or face deletion.</p>
+      <p className='upload-header-text'>Any uploads must comply with the <a href='https://thecatapi.com/privacy' target='_blank' rel="noreferrer">upload guidelines</a> or face deletion.</p>
       <FileUploader
         classes={`modal-drop-area ${isUploadError === 'error' ? 'modal-upload-error' : ''}`}
         children={innerElement}

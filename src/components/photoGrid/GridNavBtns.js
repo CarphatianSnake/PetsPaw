@@ -1,13 +1,12 @@
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
-import { pageSlice } from './pageSlice'
-import store from '../store/store'
+import { pageInc, pageDec } from './pageSlice'
 
 import './photoGrid.scss'
 
 const GridNavBtns = (props) => {
 
-  const {dispatch} = store
+  const dispatch = useDispatch()
 
   const page = useSelector(state => state.pageSlice.gridPage)
 
@@ -17,7 +16,7 @@ const GridNavBtns = (props) => {
     return (
       <div className="grid-nav-btns">
         <button className='greed-btns' disabled>{'< Prev'}</button>
-        <button onClick={() => {dispatch(pageSlice.actions.pageInc())}} className='greed-btns'>{'> Next'}</button>
+        <button onClick={() => {dispatch(pageInc())}} className='greed-btns'>{'> Next'}</button>
       </div>
     )
   }
@@ -25,7 +24,7 @@ const GridNavBtns = (props) => {
   if (page === totalpages) {
     return (
       <div className="grid-nav-btns">
-        <button onClick={() => {dispatch(pageSlice.actions.pageDec())}} className='greed-btns'>{'< Prev'}</button>
+        <button onClick={() => {dispatch(pageDec())}} className='greed-btns'>{'< Prev'}</button>
         <button className='greed-btns' disabled>{'> Next'}</button>
       </div>
     )
@@ -33,8 +32,8 @@ const GridNavBtns = (props) => {
   
   return (
     <div className="grid-nav-btns">
-      <button onClick={() => {dispatch(pageSlice.actions.pageDec())}} className='greed-btns'>{'< Prev'}</button>
-      <button onClick={() => {dispatch(pageSlice.actions.pageInc())}} className='greed-btns'>{'> Next'}</button>
+      <button onClick={() => {dispatch(pageDec())}} className='greed-btns'>{'< Prev'}</button>
+      <button onClick={() => {dispatch(pageInc())}} className='greed-btns'>{'> Next'}</button>
     </div>
   )
 
