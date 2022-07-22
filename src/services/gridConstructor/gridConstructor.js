@@ -15,7 +15,8 @@ const gridConstructor = (arr, innerElement) => {
 
       const gridBase = Math.floor(i / 10) * 10
 
-      const classesBase = `photo-grid-item${item.url ? '' : ' no-photo'}`
+      const _class = 'photo-grid-item'
+      const classesBase = `${_class}${item.url ? '' : ' no-photo'}`
       const stylesBase = {backgroundImage: `url(${item.url})`}
 
       const gridElementStyles = (classes, start, end, n) => {
@@ -29,13 +30,13 @@ const gridConstructor = (arr, innerElement) => {
 
       switch (i) {
         case 0 + gridBase:
-          return gridElementStyles('photo-grid-item_vert photo-grid-item_vert_col-left', gridRowStart, gridRowEnd, 1)
+          return gridElementStyles(`${_class}_vert ${_class}_vert_col-left`, gridRowStart, gridRowEnd, 1)
         case 3 + gridBase:
-          return gridElementStyles('photo-grid-item_big-square photo-grid-item_big-square_col-right', gridRowStart, gridRowEnd, 2)
+          return gridElementStyles(`${_class}_big-square ${_class}_big-square_col-right`, gridRowStart, gridRowEnd, 2)
         case 7 + gridBase:
-          return gridElementStyles('photo-grid-item_vert photo-grid-item_vert_col-right', gridRowStart, gridRowEnd, 1)
+          return gridElementStyles(`${_class}_vert ${_class}_vert_col-right`, gridRowStart, gridRowEnd, 1)
         case 8 + gridBase:
-          return gridElementStyles('photo-grid-item_big-square photo-grid-item_big-square_col-left', gridRowStart, gridRowEnd, 2)
+          return gridElementStyles(`${_class}_big-square ${_class}_big-square_col-left`, gridRowStart, gridRowEnd, 2)
         default: return {styles: stylesBase, classes: classesBase}
       }
     })
