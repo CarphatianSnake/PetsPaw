@@ -17,7 +17,7 @@ import './gallery.scss';
 const Gallery = () => {
   const dispatch = useDispatch()
 
-  const { order, type, breed, limit } = useSelector(state => state.gallerySlice)
+  const { order, breed, limit } = useSelector(state => state.gallerySlice)
   const _baseUrl = `search?${breed === 'None' ? '' : `breed_id=${breed}&`}limit=${limit}&order=${order}&size=full`
 
   useEffect(() => {
