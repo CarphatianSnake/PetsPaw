@@ -17,11 +17,12 @@ const Favourites = () => {
   useEffect(() => {
     dispatch(reset())
     dispatch(fetchFavourites())
+    // eslint-disable-next-line
   }, [])
 
   const elements = useMemo(() => {
     return isFavLoaded === 'loaded' ? <PhotoGrid name='favourites' photos={photos} /> : <Spinner/>
-  }, [photos])
+  }, [photos, isFavLoaded])
 
   return (
     <main>

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
 
 import { fetchBreeds, getBreedsList } from '../breeds/breedsSlice'
-import { fetchGalleryPhotos, getPhotos, showModal, reset } from './gallerySlice';
+import { fetchGalleryPhotos, getPhotos, showModal, reset, getOrder, getType, getBreed, getLimit } from './gallerySlice';
 import { fetchFavourites } from '../favourites/favouritesSlice'
 
 import SearchPanel from '../searchPanel/SearchPanel';
@@ -25,6 +25,13 @@ const Gallery = () => {
     dispatch(fetchFavourites())
     dispatch(fetchBreeds())
     dispatch(fetchGalleryPhotos(_baseUrl))
+
+    return () => {
+      dispatch(getOrder('RANDOM'))
+      dispatch(getType('All'))
+      dispatch(getBreed('None'))
+      dispatch(getLimit(5))
+    }
     // eslint-disable-next-line
   }, [])
 
