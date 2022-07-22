@@ -7,8 +7,7 @@ const _apiBase = 'https://api.thecatapi.com/v1/'
 const favouritesAdapter = createEntityAdapter()
 
 const initialState = favouritesAdapter.getInitialState({
-  favouritesLoading: 'idle',
-  favDeleting: 'idle'
+  favouritesLoading: 'idle'
 })
 
 export const fetchFavourites = createAsyncThunk(
@@ -36,13 +35,6 @@ const favouritesSlice = createSlice({
       .addCase(fetchFavourites.fulfilled, (state, {payload}) => {
         state.favouritesLoading = 'loaded'
         favouritesAdapter.setAll(state, payload)
-      })
-      .addCase(removeFromFav.fulfilled, (state, {payload}) => {
-        if (payload.message === 'INVALID_ACCOUNT') {
-          state.favDeleting = 'error'
-        } else {
-          state.favDeleting = 'deleted'
-        }
       })
       .addDefaultCase(() => {})
   }

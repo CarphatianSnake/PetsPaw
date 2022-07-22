@@ -14,95 +14,16 @@ const PhotoGrid = (props) => {
   const {name, photos} = props
 
   const [photosList, setPhotosList] = useState(photos)
+  const favsList = useSelector(getFavourites)
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const isFavLoaded = useSelector(state => state.favouritesSlice.favouritesLoading)
 
   useMemo(() => {
     if (name !== 'favourites') {
       setPhotosList(photos)
     }
-  }, [photos])
-
-  const [onElement, setOnElement] = useState()
-  const [favCheck, setFavCheck] = useState(false)
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-
-  const favsList = useSelector(getFavourites)
-  const isFavDelError = useSelector(state => state.favouritesSlice.favDeleting)
-  const isFavLoaded = useSelector(state => state.favouritesSlice.favouritesLoading)
-
-  // const onGridOn = (e, id) => {
-  //   setOnElement(e.target.querySelector('div'))
-  //   e.target.querySelector('div').classList.add('grid-active')
-  //   if (name === 'gallery') {
-  //     setFavCheck(favsList.filter(item => item.id === id)[0])
-  //   }
-  // }
-
-  // const onGridOut = () => {
-  //   onElement.classList.remove('grid-active')
-  // }
-
-  // const galeryElement = (id) => {
-
-  //   if (isFavDelError === 'error') {
-  //     dispatch(removeFromFav(favId))
-  //   }
-
-  //   const onFav = (e) => {
-  //     const buttonClass = e.target.classList
-  //     if (buttonClass.contains('gallery-btn')) {
-  //       dispatch(addToFav(id))
-  //       dispatch(fetchFavourites())
-  //       buttonClass.remove('gallery-btn')
-  //       buttonClass.add('active-gallery-btn')
-  //     } else if (isFavLoaded === 'loaded') {
-  //       dispatch(removeFromFav(favId))
-  //       dispatch(fetchFavourites())
-  //       buttonClass.remove('active-gallery-btn')
-  //       buttonClass.add('gallery-btn')
-  //     }
-  //   }
-
-  //   const isFav = () => {
-  //     return favCheck ? 'active-gallery-btn' : 'gallery-btn'
-  //   }
-
-  //   const btnCls = isFav()
-
-  //   return (
-  //     <div className='gallery-hover-element'>
-  //       <button
-  //         onClick={(e) => onFav(e, id)}
-  //         className={btnCls}>
-  //       </button>
-  //     </div>
-  //   )
-  // }
-
-  // const grid = () => {
-
-  //   if (name === 'gallery') {
-  //     return (
-  //       <div className="photo-grid">
-  //         {photos.map(item => {
-  //           const element = galeryElement(item.id)
-  //           return (
-  //             <div
-  //               onMouseEnter={(e) => onGridOn(e, item.id)}
-  //               onMouseLeave={onGridOut}
-  //               key={nanoid()}
-  //               style={{backgroundImage: `url('${item.url}')`}}
-  //               className='photo-grid-item'>
-  //                 {element}
-  //             </div>
-  //           )
-  //         })}
-  //       </div>
-  //     )
-  //   }
-  // }
-
-  const buttonStyle = name === 'breeds' ? '.breed-btn' : name === 'favourites' ? '.active-gallery-btn' : '.gallery-btn'
+  }, [photos, name])
 
   const gridButtons = (name, breed, id, favId) => {
     
@@ -116,7 +37,7 @@ const PhotoGrid = (props) => {
           setPhotosList(photosList.filter(item => item.favId !== favId))
         }
 
-        return <button onClick={onUnFav} className='active-gallery-btn' />
+        return <button onClick={onUnFav} className='active-gallery-btn grid-btn' />
 
       case 'breeds':
 
@@ -128,8 +49,38 @@ const PhotoGrid = (props) => {
         }
 
         return (
-          <button onClick={onBreed} className='breed-btn'>{breed}</button>
+          <button onClick={onBreed} className='breed-btn grid-btn'>{breed}</button>
         )
+
+      case 'gallery':
+
+        const fId = () => {if (isFavLoaded === 'loaded') return favsList.filter(item => item.id === id)[0]}
+
+        const onFav = (e) => {
+          const buttonClass = e.target.classList
+          if (buttonClass.contains('gallery-btn')) {
+            dispatch(addToFav(id))
+            setTimeout(() => {dispatch(fetchFavourites())}, 1000)
+            buttonClass.remove('gallery-btn')
+            buttonClass.add('active-gallery-btn')
+          } else if (isFavLoaded === 'loaded') {
+            dispatch(removeFromFav(fId().favId))
+            setTimeout(() => {dispatch(fetchFavourites())}, 1000)
+            buttonClass.remove('active-gallery-btn')
+            buttonClass.add('gallery-btn')
+          }
+        }
+
+        const isFav = () => {
+          if (isFavLoaded === 'loaded') {
+            return fId() ? 'active-gallery-btn' : 'gallery-btn'
+          }
+        }
+    
+        const btnCls = isFav()
+
+        return <button onClick={(e) => onFav(e, id)} className={`${btnCls} grid-btn`} />
+
     }
   }
 
@@ -140,14 +91,14 @@ const PhotoGrid = (props) => {
     }
 
     const onHover = (e) => {
-      hoverToggle(e, buttonStyle, 'block')
+      hoverToggle(e, '.grid-btn', 'block')
     }
     const outHover = (e) => {
-      hoverToggle(e, buttonStyle, 'none')
+      hoverToggle(e, '.grid-btn', 'none')
     }
 
     return (
-      <div onMouseEnter={(e) => onHover(e)} onMouseLeave={(e) => outHover(e)} className="hover-container">
+      <div value={id} onMouseEnter={(e) => onHover(e)} onMouseLeave={(e) => outHover(e)} className="hover-container">
         {gridButtons(name, breed, id, favId)}
       </div>
     )
@@ -155,12 +106,12 @@ const PhotoGrid = (props) => {
 
   const elements = photosList.map((item) => {
     return (
-      <div
-        key={nanoid()}
-        style={{backgroundImage: `url(${item.url})`}}
-        className={`photo-grid-item${item.url ? '' : ' no-photo'}`}>
-          {hoverElement(item.name, item.id, item.favId)}
-      </div>
+        <div
+          key={nanoid()}
+          style={{backgroundImage: `url(${item.url})`}}
+          className={`photo-grid-item${item.url ? '' : ' no-photo'}`}>
+            {hoverElement(item.name, item.id, item.favId)}
+        </div>
     )
   })
 

@@ -18,7 +18,7 @@ const SingleBreed = () => {
   const breedPhotos = useSelector(getBreedPhotos)
   const isPhotosLoaded = useSelector(state => state.breedsSlice.singleBreedPhotos.singleBreedPhotosLoading)
   const breedID = useSelector(state => state.breedsSlice.breedId)
-  const {duration, defaultStyle, transitionStyles} = transitions(500, 'ease-in-out')
+  const {duration, defaultStyle, transitionStyles} = transitions(300, 'ease-in-out')
 
   const breed = getBreedInfo.filter(item => item.id === breedID)[0]
 
