@@ -9,23 +9,26 @@ import BreedsList from './breedsList/BreedsList'
 import SortBtns from './sortBtns/SortBtns'
 import PhotoGrid from '../photoGrid/PhotoGrid'
 import Spinner from '../spinner'
-import { fetchBreeds, breedsSlice, getBreedsList, breedsLimit } from './breedsSlice'
-import { pageSlice } from '../photoGrid/pageSlice'
-import store from "../store/store"
+import GridNavBtns from '../photoGrid/GridNavBtns'
+import { fetchBreeds, getBreedsList, breedsLimit } from './breedsSlice'
+import { pageRst } from '../photoGrid/pageSlice'
 
 import './breeds.scss'
 
 const Breeds = () => {
 
-  const {getState} = store
   const dispatch = useDispatch()
+  const breedsList = useSelector(getBreedsList)
   const limit = useSelector(state => state.breedsSlice.breedsLimit)
   const isBreedsLoaded = useSelector(state => state.breedsSlice.breedsStatus)
-  const isBreedsReverse = useSelector(state => state.breedsSlice.breedsReverse)
+  const isBreedsReverse = useSelector(state => state.breedsSlice.breedsReverse)  
+  const page = useSelector(state => state.pageSlice.gridPage)
 
   useEffect(() => {
     dispatch(fetchBreeds())
-  })
+    dispatch(pageRst())
+    // eslint-disable-next-line
+  }, [])
 
   const makeBreedsArray = (arr, limit, isReverse) => {
 
@@ -45,7 +48,7 @@ const Breeds = () => {
 
   const changeLimit = (e) => {
     dispatch(breedsLimit(e.target.value))
-    dispatch(pageSlice.actions.pageRst())
+    dispatch(pageRst())
   }
 
   const limitsSelect = (
@@ -59,6 +62,15 @@ const Breeds = () => {
       }
     </select>
   )
+  
+  let photos = []
+  if (isBreedsLoaded === 'loaded') {
+    photos = makeBreedsArray(breedsList.map(item => ({
+      ...item.photo,
+      name: item.name,
+      id: item.id
+    })), limit, isBreedsReverse)
+  }
 
   return (
     <main>
@@ -74,10 +86,13 @@ const Breeds = () => {
 
         <div className='scroll-container'>
           {isBreedsLoaded === 'loaded' ?
-            <PhotoGrid
-              name='breeds'
-              photos={makeBreedsArray(getBreedsList(getState()), limit, isBreedsReverse)}
-            /> :
+            <>
+              <PhotoGrid
+                name='breeds'
+                photos={photos[page]}
+              />
+              <GridNavBtns page={page} totalpages={photos.length - 1} />
+            </> :
             <Spinner />}
         </div>
 

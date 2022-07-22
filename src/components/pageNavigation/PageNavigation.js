@@ -12,7 +12,7 @@ const PageNavigation = () => {
   if (breedId === pathname.slice(1)) {
     return (
     <div className="page-nav">
-      <button onClick={() => nav(-1)} className="back-btn"></button>
+      <button onClick={() => nav(-1)} className="back-btn" />
       <h3 className='breed'>{breedName}</h3>
       <h3>{breedId}</h3>
     </div>
@@ -20,7 +20,7 @@ const PageNavigation = () => {
   } else {
     return (
       <div className="page-nav">
-        <button onClick={() => nav(-1)} className="back-btn"></button>
+        <button onClick={() => nav(-1)} className="back-btn" />
         <h3>{pathname.slice(1)}</h3>
       </div>
     )

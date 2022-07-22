@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { fetchPhoto, getPhotoData } from '../vSlice'
+import { fetchPhoto, getPhotoData, reset } from '../vSlice'
 import VoteBtns from './voteBtns/VoteBtns'
 import Spinner from '../../spinner'
 
@@ -11,20 +11,18 @@ const VotingImage = () => {
   const dispatch = useDispatch()
 
   const photoData = useSelector(getPhotoData)
-  const isPhotoLoading = useSelector(state => state.vSlice.photoStatus)
+  // const isPhotoLoading = useSelector(state => state.vSlice.photoStatus)
 
-  useEffect(() => {
-    dispatch(fetchPhoto())
-  }, []);
+  // useEffect(() => {
+  //   dispatch(reset())
+  //   dispatch(fetchPhoto())
+  //   // eslint-disable-next-line
+  // }, []);
   
   return (
     <div className="photo-container">
-      {isPhotoLoading === 'loaded' ? 
-        <>
-          <img src={photoData.url} />
-          <VoteBtns />
-        </> : 
-        <Spinner />} 
+      <img className='vote-img' src={photoData.url} alt='Cat' />
+      <VoteBtns />
     </div>
   )
 }

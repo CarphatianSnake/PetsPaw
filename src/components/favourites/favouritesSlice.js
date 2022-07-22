@@ -7,8 +7,7 @@ const _apiBase = 'https://api.thecatapi.com/v1/'
 const favouritesAdapter = createEntityAdapter()
 
 const initialState = favouritesAdapter.getInitialState({
-  favouritesLoading: 'idle',
-  favDeleting: 'idle'
+  favouritesLoading: 'idle'
 })
 
 export const fetchFavourites = createAsyncThunk(
@@ -30,19 +29,16 @@ export const removeFromFav = createAsyncThunk(
 const favouritesSlice = createSlice({
   name: 'favouritesSlice',
   initialState,
-  reducers: {},
+  reducers: {
+    reset(state) {
+      state.favouritesLoading = 'idle'
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchFavourites.fulfilled, (state, {payload}) => {
         state.favouritesLoading = 'loaded'
         favouritesAdapter.setAll(state, payload)
-      })
-      .addCase(removeFromFav.fulfilled, (state, {payload}) => {
-        if (payload.message === 'INVALID_ACCOUNT') {
-          state.favDeleting = 'error'
-        } else {
-          state.favDeleting = 'deleted'
-        }
       })
       .addDefaultCase(() => {})
   }
@@ -50,6 +46,7 @@ const favouritesSlice = createSlice({
 
 const {reducer} = favouritesSlice
 export default reducer
+export const { reset } = favouritesSlice.actions
 
 const selectFavourites = favouritesAdapter.getSelectors(state => state.favouritesSlice).selectAll
 
@@ -60,9 +57,10 @@ export const getFavourites = createSelector(
     if (status === 'loaded') {
       return data.map(item => {
         return {
-          id: item.id,
-          imageID: item.image_id,
-          url: item.image.url
+          favId: item.id,
+          id: item.image.id,
+          url: item.image.url,
+          time: item.created_at
         }
       })
     }

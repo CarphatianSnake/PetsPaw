@@ -18,3 +18,4 @@ export const pageSlice = createSlice({
 
 const {reducer} = pageSlice
 export default reducer
+export const { pageInc, pageDec, pageRst } = pageSlice.actions

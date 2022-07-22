@@ -11,10 +11,8 @@ const Sidebar = () => {
       <li className='nav-list-item' key={i}>
         <NavLink to={`/${elToLC}`}
           className={({isActive}) => isActive ? 'active nav-link' : 'nav-link'}>
-            <div className={`${elToLC}-pic nav-pic`}></div>
-            <h2>
-              {el}
-            </h2>
+            <div className={`${elToLC}-pic nav-pic`} />
+            <h2>{el}</h2>
         </NavLink>
       </li>
     )
@@ -23,7 +21,7 @@ const Sidebar = () => {
   return (
     <aside>
       <NavLink  to='/'>
-        <div className="logo"></div>
+        <div className="logo" />
       </NavLink>
       <h1>Hi intern!</h1>
       <p>Welcome to MI 2022 Front-end test</p>

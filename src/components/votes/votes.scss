@@ -2,9 +2,13 @@
 
 .photo-container {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  min-height: 360px;
-  & img {
+  min-height: 350px;
+  & .vote-img {
     margin: 0 auto;
     border-radius: 20px;
     min-height: 360px;

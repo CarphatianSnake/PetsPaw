@@ -45,10 +45,10 @@
   width: 40px;
   height: 40px;
   margin: 10px;
-  background: no-repeat 50% url('./img/search-button.svg');
+  background: no-repeat center url('./img/search-button.svg');
   transition: background $transition-delay;
   &:hover {
-    background: no-repeat 50% url('./img/search-button-hover.svg');
+    background: no-repeat center url('./img/search-button-hover.svg');
   }
 }
 
@@ -59,43 +59,46 @@
 }
 
 .btn-likes {
-  background: no-repeat 50% url('./img/like-std.svg');
+  background: no-repeat center url('./img/like-std.svg');
   background-color: $white;
   transition: background $transition-delay, background-color $transition-delay;
   &:hover {
-    background: no-repeat 50% url('./img/like-std.svg');
+    background: no-repeat center url('./img/like-std.svg');
     background-color: $hover-pink;
   }
-  &:active, .likes .active {
-    background: no-repeat 50% url('./img/like-active.svg');
-    background-color: $active-pink;
-  }
+}
+
+.btn-likes-active {
+  background: no-repeat center url('./img/like-active.svg');
+  background-color: $active-pink;
 }
 
 .btn-favourites {
-  background: no-repeat 50% url('./img/fav-std.svg');
+  background: no-repeat center url('./img/fav-std.svg');
   background-color: $white;
   transition: background $transition-delay, background-color $transition-delay;
   &:hover {
-    background: no-repeat 50% url('./img/fav-std.svg');
+    background: no-repeat center url('./img/fav-std.svg');
     background-color: $hover-pink;
-  }
-  &:active, .likes .active {
-    background: no-repeat 50% url('./img/fav-active.svg');
-    background-color: $active-pink;
   }
 }
 
+.btn-favourites-active {
+  background: no-repeat center url('./img/fav-active.svg');
+  background-color: $active-pink;
+}
+
 .btn-dislikes {
-  background: no-repeat 50% url('./img/dislike-std.svg');
+  background: no-repeat center url('./img/dislike-std.svg');
   background-color: $white;
   transition: background $transition-delay, background-color $transition-delay;
   &:hover {
-    background: no-repeat 50% url('./img/dislike-std.svg');
+    background: no-repeat center url('./img/dislike-std.svg');
     background-color: $hover-pink;
   }
-  &:active, .likes .active {
-    background: no-repeat 50% url('./img/dislike-active.svg');
-    background-color: $active-pink;
-  }
+}
+
+.btn-dislikes-active {
+  background: no-repeat center url('./img/dislike-active.svg');
+  background-color: $active-pink;
 }
