@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FileUploader } from "react-drag-drop-files";
 
-import { uploadedFile, readyToUpload, resetUploadStatus } from '../gallerySlice'
+import { uploadedFile, readyToUpload } from '../gallerySlice'
 import UploadBtn from "./UploadBtn";
 
 import '../gallery.scss'
