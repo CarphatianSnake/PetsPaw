@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FileUploader } from "react-drag-drop-files";
 
-import { uploadedFile, readyToUpload } from '../gallerySlice'
+import { uploadedFile, readyToUpload, resetUploadStatus } from '../gallerySlice'
 import UploadBtn from "./UploadBtn";
 
 import '../gallery.scss'
@@ -13,7 +13,7 @@ const DragDrop = () => {
 
   const dispatch = useDispatch()
   const fileInfo = useSelector(state => state.gallerySlice.uploadedFile)
-  const isUploadError = useSelector(state => state.gallerySlice.uploadingStatus)
+  const isUploaded = useSelector(state => state.gallerySlice.uploadingStatus)
   const [file, setFile] = useState(null)
 
   const handleChange = e => {
@@ -28,19 +28,19 @@ const DragDrop = () => {
     }
   }
 
-  const innerElement = fileInfo.url ? <img className='uploading-img' src={fileInfo.url} alt='File preview' /> : <p className='dropzone-inner-txt'><span>Drag here</span> your file or <span>Click here</span> to upload</p>
+  const innerElement = fileInfo.url && isUploaded !== 'uploaded' ? <img className='uploading-img' src={fileInfo.url} alt='File preview' /> : <p className='dropzone-inner-txt'><span>Drag here</span> your file or <span>Click here</span> to upload</p>
 
   return (
     <>
       <h3 className='upload-header'>Upload a .jpg or .png Cat Image</h3>
       <p className='upload-header-text'>Any uploads must comply with the <a href='https://thecatapi.com/privacy' target='_blank' rel="noreferrer">upload guidelines</a> or face deletion.</p>
       <FileUploader
-        classes={`modal-drop-area ${isUploadError === 'error' ? 'modal-upload-error' : ''}`}
+        classes={`modal-drop-area ${isUploaded === 'error' ? 'modal-upload-error' : ''}`}
         children={innerElement}
         handleChange={handleChange}
         name='file'
         types={fileTypes} />
-      <p className='upload-info'>{fileInfo.name ? `Image File Name: ${fileInfo.name}` : 'No file selected'}</p>
+      <p className='upload-info'>{fileInfo.name && isUploaded !== 'uploaded' ? `Image File Name: ${fileInfo.name}` : 'No file selected'}</p>
       <UploadBtn file={file} />
     </>
   )
