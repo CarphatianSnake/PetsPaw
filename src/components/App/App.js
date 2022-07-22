@@ -7,9 +7,9 @@ import Breeds from '../breeds/Breeds'
 import Gallery from '../gallery/Gallery'
 import Votes from '../votes/Votes'
 import SingleBreed from '../singleBreed/SingleBreed'
-import Likes from '../likes/Likes'
+import Likes from '../Likes/Likes'
 import Favourites from '../favourites/Favourites'
-import Dislikes from '../dislikes/Dislikes'
+import Dislikes from '../Dislikes/Dislikes'
 
 import './app.scss'
 
