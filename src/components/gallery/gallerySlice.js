@@ -78,6 +78,9 @@ export const gallerySlice = createSlice({
     },
     resetUploadStatus(state) {
       state.uploadingStatus = 'idle'
+    },
+    reset(state) {
+      state.photosLoading = 'idle'
     }
   },
   extraReducers: (builder) => {
@@ -109,7 +112,8 @@ export const {
   showModal, 
   uploadedFile, 
   readyToUpload, 
-  resetUploadStatus
+  resetUploadStatus,
+  reset
 } = gallerySlice.actions
 
 const selectGalleryPhotos = galleryAdapter.getSelectors(state => state.gallerySlice).selectAll

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
 
 import { fetchBreeds, getBreedsList } from '../breeds/breedsSlice'
-import { fetchGalleryPhotos, getPhotos, showModal } from './gallerySlice';
+import { fetchGalleryPhotos, getPhotos, showModal, reset } from './gallerySlice';
 import { fetchFavourites } from '../favourites/favouritesSlice'
 
 import SearchPanel from '../searchPanel/SearchPanel';
@@ -16,13 +16,15 @@ import './gallery.scss';
 
 const Gallery = () => {
   const dispatch = useDispatch()
+
   const { order, type, breed, limit } = useSelector(state => state.gallerySlice)
-  const url = `search?${breed === 'None' ? '' : `breed_id=${breed}&`}limit=${limit}&order=${order}&size=full`
+  const _baseUrl = `search?${breed === 'None' ? '' : `breed_id=${breed}&`}limit=${limit}&order=${order}&size=full`
 
   useEffect(() => {
+    dispatch(reset())
     dispatch(fetchFavourites())
     dispatch(fetchBreeds())
-    dispatch(fetchGalleryPhotos(url))
+    dispatch(fetchGalleryPhotos(_baseUrl))
     // eslint-disable-next-line
   }, [])
 
@@ -33,7 +35,8 @@ const Gallery = () => {
   const showMod = useSelector(state => state.gallerySlice.showModal)
 
   const onRefresh = () => {
-    dispatch(fetchGalleryPhotos(url))    
+    dispatch(reset())
+    dispatch(fetchGalleryPhotos(_baseUrl)) 
   }
 
   return (

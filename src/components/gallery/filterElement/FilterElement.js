@@ -48,7 +48,10 @@ const FilterElement = (props) => {
         break
       case 'Breed':
         dispatch(getBreed(
-          [{name: 'None', id: 'None'}].concat(breedsList).filter(item => item.name === value)[0].id
+          [{name: 'None', id: 'None'}]
+            .concat(breedsList)
+            .filter(item => item.name === value)[0]
+            .id
         ))
         break
       default:

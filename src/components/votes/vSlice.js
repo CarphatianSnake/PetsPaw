@@ -72,7 +72,11 @@ export const fetchFavs = createAsyncThunk(
 const vSlice = createSlice({
   name: 'vSlice',
   initialState,
-  reducers: {},
+  reducers: {
+    reset(state) {
+      state.photoStatus = 'idle'
+    }
+  },
   extraReducers: builder => {
     builder
       .addCase(fetchPhoto.fulfilled, (state, {payload}) => {
@@ -95,6 +99,7 @@ const vSlice = createSlice({
 
 const {reducer} = vSlice
 export default reducer
+export const {reset} = vSlice.actions
 
 export const selectPhoto = photoAdapter.getSelectors(state => state.vSlice).selectAll
 export const selectVotes = votesAdapter.getSelectors(state => state.vSlice.votes).selectAll

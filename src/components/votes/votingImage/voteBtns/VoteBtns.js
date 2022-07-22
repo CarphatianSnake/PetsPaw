@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { fetchPhoto, postLike, postDislike, addToFav, fetchVotes, getPhotoData } from '../../vSlice'
+import { fetchPhoto, postLike, postDislike, addToFav, fetchVotes, getPhotoData, reset } from '../../vSlice'
 
 import '../../votes.scss'
 
@@ -19,12 +19,14 @@ const VoteBtns = () => {
     if (action === 'like') {
       dispatch(postLike(id))
         .then(dispatch(fetchVotes()))
+        .then(dispatch(reset()))
         .then(dispatch(fetchPhoto()))
       setActive(false)
       }
     if (action === 'dislike') {
       dispatch(postDislike(id))
         .then(dispatch(fetchVotes()))
+        .then(dispatch(reset()))
         .then(dispatch(fetchPhoto()))
       setActive(false)
     }

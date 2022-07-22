@@ -5,7 +5,7 @@ import Spinner from '../spinner'
 import PageNavigation from '../pageNavigation/PageNavigation'
 import SearchPanel from '../searchPanel/SearchPanel'
 import PhotoGrid from '../photoGrid/PhotoGrid'
-import { fetchFavourites, getFavourites } from './favouritesSlice'
+import { fetchFavourites, getFavourites, reset } from './favouritesSlice'
 
 import '../gallery/gallery.scss'
 
@@ -15,6 +15,7 @@ const Favourites = () => {
   const isFavLoaded = useSelector(state => state.favouritesSlice.favouritesLoading)
 
   useEffect(() => {
+    dispatch(reset())
     dispatch(fetchFavourites())
   }, [])
 
