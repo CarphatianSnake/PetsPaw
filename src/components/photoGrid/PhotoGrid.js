@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { nanoid } from '@reduxjs/toolkit'
@@ -15,6 +15,11 @@ const PhotoGrid = (props) => {
 
   const [photosList, setPhotosList] = useState(photos)
 
+  useMemo(() => {
+    if (name !== 'favourites') {
+      setPhotosList(photos)
+    }
+  }, [photos])
 
   const [onElement, setOnElement] = useState()
   const [favCheck, setFavCheck] = useState(false)
@@ -97,7 +102,7 @@ const PhotoGrid = (props) => {
   //   }
   // }
 
-  const buttonStyle = name === 'breeds' ? '.breed-btn' : '.gallery-btn'
+  const buttonStyle = name === 'breeds' ? '.breed-btn' : name === 'favourites' ? '.active-gallery-btn' : '.gallery-btn'
 
   const gridButtons = (name, breed, id, favId) => {
     
@@ -111,7 +116,7 @@ const PhotoGrid = (props) => {
           setPhotosList(photosList.filter(item => item.favId !== favId))
         }
 
-        return <button onClick={onUnFav} className='gallery-btn' />
+        return <button onClick={onUnFav} className='active-gallery-btn' />
 
       case 'breeds':
 
@@ -159,9 +164,11 @@ const PhotoGrid = (props) => {
     )
   })
 
+  const noItems = <div className="no-items">No item found</div>
+
   return (
     <div className="photo-grid">
-      {elements}
+      {elements.length === 0 ? noItems : elements}
     </div>
   )
 

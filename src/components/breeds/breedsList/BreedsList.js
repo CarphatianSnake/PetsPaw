@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { getBreedsList, breedsSlice } from '../breedsSlice'
+import { getBreedsList, removePhotos, breedName, breedId } from '../breedsSlice'
 
 import '../breeds.scss'
 
@@ -13,11 +13,11 @@ const BreedsList = () => {
   const isBreedsLoaded = useSelector(state => state.breedsSlice.breedsStatus)
 
   const onBreedChoose = (e) => {
-    const breedId = breedsList.filter(item => item.name === e.target.value)[0].id
-    dispatch(breedsSlice.actions.removePhotos())
-    dispatch(breedsSlice.actions.breedName(e.target.value.toLowerCase()))
-    dispatch(breedsSlice.actions.breedId(breedId))
-    navigate(`../${breedId}`)
+    const brdId = breedsList.filter(item => item.name === e.target.value)[0].id
+    dispatch(removePhotos())
+    dispatch(breedName(e.target.value.toLowerCase()))
+    dispatch(breedId(brdId))
+    navigate(`../${brdId}`)
   }
 
   return (

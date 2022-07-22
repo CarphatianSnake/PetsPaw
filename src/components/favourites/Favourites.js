@@ -18,8 +18,6 @@ const Favourites = () => {
     dispatch(fetchFavourites())
   }, [])
 
-  console.log(photos);
-
   const elements = useMemo(() => {
     return isFavLoaded === 'loaded' ? <PhotoGrid name='favourites' photos={photos} /> : <Spinner/>
   }, [photos])
