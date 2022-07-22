@@ -58,24 +58,24 @@ const Gallery = () => {
             </button>
           </div>
           <div className='scroll-container'>
+            {isPhotosLoaded === 'loaded' ? 
+              <>
                 <nav className="gallery-filters">
-                  
-                    {isBreedsLoaded === 'loaded' ? 
-                    <>
-                      <FilterElement name='Order' />
-                      <FilterElement name='Type' />
-                      <FilterElement name='Breed' data={breedsList} />
-                      <FilterElement name='Limit' />
-                      <button onClick={onRefresh} className="refresh-btn"></button>
-                    </> : null}
-                  
+                  {isBreedsLoaded === 'loaded' ? 
+                  <>
+                    <FilterElement name='Order' />
+                    <FilterElement name='Type' />
+                    <FilterElement name='Breed' data={breedsList} />
+                    <FilterElement name='Limit' />
+                    <button onClick={onRefresh} className="refresh-btn"></button>
+                  </> : null}
                 </nav>
-                {isPhotosLoaded === 'loaded' ? 
-                  <PhotoGrid name='gallery' photos={galleryPhotos} />
-                :
-                  <Spinner />
-                }
-              </div>
+                <PhotoGrid name='gallery' photos={galleryPhotos} />
+              </>
+            :
+              <Spinner />
+            }
+          </div>
         </section>
       </main>
       

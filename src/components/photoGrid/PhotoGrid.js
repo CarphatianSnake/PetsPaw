@@ -1,11 +1,11 @@
-import { useState, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { nanoid } from '@reduxjs/toolkit'
 
 import { breedId, breedName, removePhotos } from '../breeds/breedsSlice'
 import { getFavourites, removeFromFav, fetchFavourites } from '../favourites/favouritesSlice'
 import { addToFav } from '../votes/vSlice'
+import gridConstructor from '../../services/gridConstructor/gridConstructor'
 
 import './photoGrid.scss'
 
@@ -19,7 +19,7 @@ const PhotoGrid = (props) => {
   const dispatch = useDispatch()
   const isFavLoaded = useSelector(state => state.favouritesSlice.favouritesLoading)
 
-  useMemo(() => {
+  useEffect(() => {
     if (name !== 'favourites') {
       setPhotosList(photos)
     }
@@ -81,6 +81,8 @@ const PhotoGrid = (props) => {
 
         return <button onClick={(e) => onFav(e, id)} className={`${btnCls} grid-btn`} />
 
+      default: break
+
     }
   }
 
@@ -104,16 +106,7 @@ const PhotoGrid = (props) => {
     )
   }
 
-  const elements = photosList.map((item) => {
-    return (
-        <div
-          key={nanoid()}
-          style={{backgroundImage: `url(${item.url})`}}
-          className={`photo-grid-item${item.url ? '' : ' no-photo'}`}>
-            {hoverElement(item.name, item.id, item.favId)}
-        </div>
-    )
-  })
+  const elements = gridConstructor(photosList, hoverElement)
 
   const noItems = <div className="no-items">No item found</div>
 
