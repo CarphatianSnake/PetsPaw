@@ -106,7 +106,7 @@ const PhotoGrid = (props) => {
     )
   }
 
-  const elements = gridConstructor(photosList, hoverElement)
+  const elements = name === 'votes' ? gridConstructor(photosList) : gridConstructor(photosList, hoverElement)
 
   const noItems = <div className="no-items">No item found</div>
 

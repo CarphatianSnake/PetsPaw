@@ -1,6 +1,6 @@
 import { nanoid } from "@reduxjs/toolkit"
 
-const gridConstructor = (arr, innerElement) => {
+const gridConstructor = (arr, innerElement = null) => {
   
   const gridStyles = (arr) => {
     let gridRowStart = 1
@@ -53,7 +53,7 @@ const gridConstructor = (arr, innerElement) => {
           key={nanoid()}
           style={styles}
           className={classes}>
-            {innerElement(item.name, item.id, item.favId)}
+            {innerElement === null ? null : innerElement(item.name, item.id, item.favId)}
         </div>
       )
   })
