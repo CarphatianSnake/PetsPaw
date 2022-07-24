@@ -2,6 +2,7 @@ import { createSlice, createEntityAdapter, createAsyncThunk, createSelector } fr
 
 import useHttp from '../../hooks/useHttp'
 
+
 const _apiBase = 'https://api.thecatapi.com/v1/'
 
 const photoAdapter = createEntityAdapter(),
@@ -75,6 +76,10 @@ const vSlice = createSlice({
   reducers: {
     reset(state) {
       state.photoStatus = 'idle'
+      state.votes.votesStatus = 'idle'
+    },
+    photoReset(state) {
+      state.singlePhoto.fetchSinglePhoto = 'idle'
     }
   },
   extraReducers: builder => {
@@ -99,7 +104,7 @@ const vSlice = createSlice({
 
 const {reducer} = vSlice
 export default reducer
-export const {reset} = vSlice.actions
+export const { reset, photoReset } = vSlice.actions
 
 export const selectPhoto = photoAdapter.getSelectors(state => state.vSlice).selectAll
 export const selectVotes = votesAdapter.getSelectors(state => state.vSlice.votes).selectAll

@@ -10,12 +10,14 @@ import SingleBreed from '../singleBreed/SingleBreed'
 import Likes from '../Likes/Likes'
 import Favourites from '../favourites/Favourites'
 import Dislikes from '../Dislikes/Dislikes'
+import SearchResult from '../searchResult/SearchResult'
 
 import './app.scss'
 
 function App() {
 
   const breedId = useSelector(state => state.breedsSlice.breedId)
+  const searchString = useSelector(state => state.searchSlice.searchString)
 
   return (
     <BrowserRouter>
@@ -31,6 +33,7 @@ function App() {
           <Route path='likes' element={<Likes />} />
           <Route path='favourites' element={<Favourites />} />
           <Route path='dislikes' element={<Dislikes />} />
+          <Route path={`search&${searchString}`} element={<SearchResult />} />
         </Routes>
         
       </div>
