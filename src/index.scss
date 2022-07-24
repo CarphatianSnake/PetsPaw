@@ -65,3 +65,63 @@ ol[class] {
   list-style: none;
   padding: 0;
 }
+
+@media (max-width: 1439px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 1279px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 1139px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 1069px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 999px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 859px) {
+  html {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 714px) {
+  html {
+    font-size: 8px;
+  }
+}
+
+@media (max-width: 569px) {
+  html {
+    font-size: 6px;
+  }
+}
+
+@media (max-width: 429px) {
+  html {
+    font-size: 5px;
+  }
+}
+
+@media (max-width: 359px) {
+  html {
+    font-size: 4px;
+  }
+}
