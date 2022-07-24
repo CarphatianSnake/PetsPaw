@@ -10,24 +10,24 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 470px;
-  height: 60px;
+  width: 23.5rem;
+  height: 3rem;
   background: $white;
-  border-radius: 20px;
-  border: 2px solid transparent;
+  border-radius: 1rem;
+  border: 0.1rem solid transparent;
   transition: border $transition-delay;
   &:hover {
-    border: 2px solid $hover-pink;
+    border: 0.1rem solid $hover-pink;
   }
   &:focus-within {
-    border: 2px solid $active-pink;
+    border: 0.1rem solid $active-pink;
   }
 }
 
 .search-input {
   width: 80%;
   height: 100%;
-  margin: 15px 20px;
+  margin: 0.75rem 1rem;
   margin-right: 0;
   color: $black-font;
   &::placeholder {
@@ -42,63 +42,65 @@
 }
 
 .search-button {
-  width: 40px;
-  height: 40px;
-  margin: 10px;
+  width: 2rem;
+  height: 2rem;
+  margin: 0.5rem;
   background: no-repeat center url('./img/search-button.svg');
+  background-size: 2rem;
   transition: background $transition-delay;
+  border-radius: 0.5rem;
   &:hover {
     background: no-repeat center url('./img/search-button-hover.svg');
   }
 }
 
 .btn-to-page {
-  width: 60px;
-  height: 60px;
-  border-radius: 20px;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 1rem;
 }
 
 .btn-likes {
-  background: no-repeat center url('./img/like-std.svg');
+  background: no-repeat center/1.5rem url('./img/like-std.svg');
   background-color: $white;
   transition: background $transition-delay, background-color $transition-delay;
   &:hover {
-    background: no-repeat center url('./img/like-std.svg');
+    background: no-repeat center/1.5rem url('./img/like-std.svg');
     background-color: $hover-pink;
   }
 }
 
 .btn-likes-active {
-  background: no-repeat center url('./img/like-active.svg');
+  background: no-repeat center/1.5rem url('./img/like-active.svg');
   background-color: $active-pink;
 }
 
 .btn-favourites {
-  background: no-repeat center url('./img/fav-std.svg');
+  background: no-repeat center/1.5rem url('./img/fav-std.svg');
   background-color: $white;
   transition: background $transition-delay, background-color $transition-delay;
   &:hover {
-    background: no-repeat center url('./img/fav-std.svg');
+    background: no-repeat center/1.5rem url('./img/fav-std.svg');
     background-color: $hover-pink;
   }
 }
 
 .btn-favourites-active {
-  background: no-repeat center url('./img/fav-active.svg');
+  background: no-repeat center/1.5rem url('./img/fav-active.svg');
   background-color: $active-pink;
 }
 
 .btn-dislikes {
-  background: no-repeat center url('./img/dislike-std.svg');
+  background: no-repeat center/1.5rem url('./img/dislike-std.svg');
   background-color: $white;
   transition: background $transition-delay, background-color $transition-delay;
   &:hover {
-    background: no-repeat center url('./img/dislike-std.svg');
+    background: no-repeat center/1.5rem url('./img/dislike-std.svg');
     background-color: $hover-pink;
   }
 }
 
 .btn-dislikes-active {
-  background: no-repeat center url('./img/dislike-active.svg');
+  background: no-repeat center/1.5rem url('./img/dislike-active.svg');
   background-color: $active-pink;
 }
