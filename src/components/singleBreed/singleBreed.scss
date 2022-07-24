@@ -1,61 +1,61 @@
 @import '../../variables.scss';
 
 .breed-photo-container {
-  min-height: 380px;
+  min-height: 19rem;
   & .cat-pic {
-    border-radius: 20px;
+    border-radius: 1rem;
   }
 }
 
 .breed-description {
   display: flex;
   flex-direction: column;
-  width: 640px;
+  width: 32rem;
   align-items: center;
-  border: 2px solid $hover-pink;
-  border-radius: 20px;
-  margin-top: 26px;
+  border: 0.1rem solid $hover-pink;
+  border-radius: 1rem;
+  margin-top: 1.3rem;
 }
 
 .breed-header {
   display: block;
   font-weight: 500;
-  font-size: 36px;
-  line-height: 52px;
+  font-size: 1.8rem;
+  line-height: 2.6rem;
   color: $black-font;
   background-color: $white;
-  margin-top: -31px;
-  padding: 5px 40px;
+  margin-top: -1.55rem;
+  padding: 0.25rem 2rem;
 }
 
 .breed-description-text {
-  width: 560px;
-  margin-bottom: 20px;
+  width: 28rem;
+  margin-bottom: 1rem;
   text-align: center;
   font-weight: 500;
 }
 
 .breed-characteristics {
   display: flex;
-  width: 560px;
+  width: 28rem;
   justify-content: space-around;
-  font-size: 16px;
-  line-height: 23px;
-  margin-bottom: 30px;
+  font-size: 0.8rem;
+  line-height: 1.15rem;
+  margin-bottom: 1.5rem;
 }
 
 .breed-char-col {
-  width: 270px;
+  width: 13.5rem;
   &:first-child {
-    margin-right: 10px;
+    margin-right: 0.5rem;
   }
   &:last-child {
-    margin-left: 10px;
+    margin-left: 0.5rem;
   }
 }
 
 .char-item {
-  margin-bottom: 10px;
+  margin-bottom: 0.5rem;
 }
 
 .char-header {
@@ -72,17 +72,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding: 0.5rem;
   background: $white;
-  border-radius: 20px;
-  margin-top: -15px;
+  border-radius: 1rem;
+  margin-top: -0.75rem;
   & .slide-point {
     cursor: pointer;
     width: 10px;
     height: 10px;
     border-radius: 50%;
     background-color: $hover-pink;
-    margin-right: 5px;
+    margin-right: 0.25rem;
     transition: background-color $transition-delay;
     &:last-child {
       margin-right: 0;
