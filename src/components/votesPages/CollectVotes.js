@@ -23,6 +23,7 @@ const CollectVotes = (props) => {
     return () => {
       dispatch(photoReset())
     }
+    // eslint-disable-next-line
   }, [])
 
   const getPhotos = useCallback((value) => {
@@ -36,12 +37,14 @@ const CollectVotes = (props) => {
           setIsPhotosLoaded(true)
         }
       })
+      // eslint-disable-next-line
   }, [votes])
 
   useEffect(() => {
     if (isVotesLoaded === 'loaded') {
       getPhotos(value)
     }
+    // eslint-disable-next-line
   }, [isVotesLoaded])
 
   const elements = isPhotosLoaded && photos ? <PhotoGrid name='votes' photos={photos} /> : <Spinner />
