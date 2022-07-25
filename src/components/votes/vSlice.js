@@ -7,7 +7,8 @@ const _apiBase = 'https://api.thecatapi.com/v1/'
 
 const photoAdapter = createEntityAdapter(),
       votesAdapter = createEntityAdapter(),
-      favsAdapter = createEntityAdapter()
+      favsAdapter = createEntityAdapter(),
+      singlePhotoAdapter = createEntityAdapter()
 
 const initialState = photoAdapter.getInitialState(
   {
@@ -18,7 +19,18 @@ const initialState = photoAdapter.getInitialState(
     }),
     favs: favsAdapter.getInitialState({
       favsStatus: 'idle'
+    }),
+    singlePhoto: singlePhotoAdapter.getInitialState({
+      fetchSinglePhoto: 'idle'
     })
+  }
+)
+
+export const fetchSinglePhoto = createAsyncThunk(
+  'vSlice/fetchSinglePhoto',
+  (id) => {
+    const {request} = useHttp()
+    return request(`${_apiBase}images/${id}`)
   }
 )
 
@@ -77,9 +89,10 @@ const vSlice = createSlice({
     reset(state) {
       state.photoStatus = 'idle'
       state.votes.votesStatus = 'idle'
+      state.singlePhoto.fetchSinglePhoto = 'idle'
     },
     photoReset(state) {
-      state.singlePhoto.fetchSinglePhoto = 'idle'
+      singlePhotoAdapter.removeAll(state.singlePhoto)
     }
   },
   extraReducers: builder => {
@@ -98,6 +111,10 @@ const vSlice = createSlice({
       })
       .addCase(postLike.fulfilled, state => {state.postStatus = true})
       .addCase(postDislike.fulfilled, state => {state.postStatus = true})
+      .addCase(fetchSinglePhoto.fulfilled, (state, {payload}) => {
+        state.singlePhoto.fetchSinglePhoto = 'loaded'
+        singlePhotoAdapter.setOne(state.singlePhoto, payload)
+      })
       .addDefaultCase(() => {})
   }
 })
@@ -107,8 +124,9 @@ export default reducer
 export const { reset, photoReset } = vSlice.actions
 
 export const selectPhoto = photoAdapter.getSelectors(state => state.vSlice).selectAll
-export const selectVotes = votesAdapter.getSelectors(state => state.vSlice.votes).selectAll
+const selectVotes = votesAdapter.getSelectors(state => state.vSlice.votes).selectAll
 export const selectFavs = favsAdapter.getSelectors(state => state.vSlice.favs).selectAll
+const selectVotePhotos = singlePhotoAdapter.getSelectors(state => state.vSlice.singlePhoto).selectAll
 
 export const getPhotoData = createSelector(
   state => state.vSlice.photoStatus,
@@ -116,6 +134,16 @@ export const getPhotoData = createSelector(
   (status, data) => {
     if (status === 'loaded') {
       return data[0]
+    }
+  }
+)
+
+export const getSinglePhoto = createSelector(
+  state => state.vSlice.singlePhoto.fetchSinglePhoto,
+  selectVotePhotos,
+  (status, data) => {
+    if (status === 'loaded') {
+      return data
     }
   }
 )

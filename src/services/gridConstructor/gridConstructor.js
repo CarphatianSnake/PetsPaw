@@ -1,7 +1,7 @@
 import { nanoid } from "@reduxjs/toolkit"
 
 const gridConstructor = (arr, innerElement = null) => {
-  
+
   const gridStyles = (arr) => {
     let gridRowStart = 1
     let gridRowEnd = 3

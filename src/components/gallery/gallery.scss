@@ -108,10 +108,10 @@
       height: 2rem;
       border-radius: 0.5rem;
       margin-left: auto;
-      background: no-repeat center url('./img/close-cross.svg'), $white;
+      background: no-repeat center/1rem url('./img/close-cross.svg'), $white;
       transition: background $transition-delay;
       &:hover {
-        background: no-repeat center url('./img/close-cross-hover.svg'), $active-pink;
+        background: no-repeat center/1rem url('./img/close-cross-hover.svg'), $active-pink;
       }
     }
     & .upload-header {
@@ -139,7 +139,7 @@
       min-height: 16rem;
       border: 0.1rem dashed $hover-pink;
       border-radius: 1rem;
-      background: no-repeat center url('../../assets/img/upload-bg.svg'), $white;
+      background: no-repeat center/10rem url('../../assets/img/upload-bg.svg'), $white;
       padding: 1rem 2rem;
       & .uploading-img {
         max-width: 100%;
